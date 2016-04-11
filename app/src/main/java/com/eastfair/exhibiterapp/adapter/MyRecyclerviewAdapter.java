@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.eastfair.exhibiterapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRe
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
+
+
     public MyRecyclerviewAdapter(Context ctx,List<T> datas) {
         mDatas = (datas != null) ? datas : new ArrayList<T>();
         context = ctx;
@@ -29,31 +33,33 @@ public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRe
 
     @Override
     public MyRecyclerviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final MyRecyclerviewHolder holder = new MyRecyclerviewHolder(context, mInflater.inflate(getItemLayoutId(viewType), parent, false));
-        if (mClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
-                }
-            });
-    }
-    if (mLongClickListener != null) {
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                mLongClickListener.onItemLongClick(holder.itemView, holder.getLayoutPosition());
-                return true;
-            }
-        });
-    }
 
-    return holder;
+            final MyRecyclerviewHolder holder = new MyRecyclerviewHolder(context, mInflater.inflate(getItemLayoutId(viewType), parent, false));
+
+            if (mClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
+                    }
+                });
+            }
+            if (mLongClickListener != null) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mLongClickListener.onItemLongClick(holder.itemView, holder.getLayoutPosition());
+                        return true;
+                    }
+                });
+            }
+            return holder;
 }
 
     @Override
     public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
         bindData(holder, position, mDatas.get(position));
+
     }
 
 

@@ -63,4 +63,5 @@
     <string name="enterjobtext">请输入职位</string>
     <string name="enteremailtext">请输入邮箱</string>
     <string name="settingpasswordtext">请设置登录密码</string>
+    <string name="btn_yanzhengnum_text">立即体验</string>
 </resources>
