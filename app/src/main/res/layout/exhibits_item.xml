@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_contact_swipe_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:bga_sil_bottomMode="pullOut"
+    app:bga_sil_springDistance="20dp"
+    app:bga_sil_swipeDirection="left">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_zpname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/img_logo"
+        android:layout_toRightOf="@+id/img_logo"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/tv_zpproperty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_zpname"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/img_logo"
+        android:layout_toRightOf="@+id/img_logo"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/tv_gsname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_zpproperty"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/img_logo"
+        android:layout_toRightOf="@+id/img_logo"
+        android:text="New Text" />
+</RelativeLayout>
+
+
+
+

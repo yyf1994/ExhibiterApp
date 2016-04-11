@@ -1,0 +1,246 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mynametext"
+            android:padding="10dp"
+            android:id="@+id/textView1" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_name"
+            android:padding="10dp"
+            android:hint="@string/enternametext"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView1"
+            android:layout_toEndOf="@+id/textView1" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_name"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mygsnametext"
+            android:padding="10dp"
+            android:id="@+id/textView2" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_gsname"
+            android:padding="10dp"
+            android:hint="@string/entergsnametext"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_gsname"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/myjobtext"
+            android:padding="10dp"
+            android:id="@+id/textView3" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_job"
+            android:padding="10dp"
+            android:hint="@string/enterjobtext"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_job"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view3" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/myemailtext"
+            android:padding="10dp"
+            android:id="@+id/textView4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_email"
+            android:padding="10dp"
+            android:hint="@string/enteremailtext"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView4"
+            android:layout_toEndOf="@+id/textView4" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_email"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view4" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_phonemun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phonenum"
+            android:padding="10dp"
+            android:id="@+id/textView5" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_phonenum"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView5"
+            android:layout_toEndOf="@+id/textView5" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_phonenum"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view5" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:padding="10dp"
+            android:id="@+id/textView6" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_pass"
+            android:padding="10dp"
+            android:hint="@string/settingpasswordtext"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView6"
+            android:layout_toEndOf="@+id/textView6" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_pass"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view6" />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_zhanpinfenlei"
+        android:padding="10dp"
+        android:id="@+id/tv_choose_fenlei" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/view7" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_zhanpinfenlei"
+        android:padding="10dp"
+        android:id="@+id/tv_choose_purpose" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/view8" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_property"
+        android:padding="10dp"
+        android:id="@+id/tv_choose_property" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/view9" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_area"
+        android:padding="10dp"
+        android:id="@+id/tv_choose_area" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/view10" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_yanzhengnum_text"
+        android:id="@+id/btn_yanzhengnum"/>
+</LinearLayout>

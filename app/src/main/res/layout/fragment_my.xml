@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:padding="10dp"
+            android:id="@+id/img_myphoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tv_myname"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/img_myphoto"
+            android:layout_toEndOf="@+id/img_myphoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tv_num"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_myname"
+            android:layout_toRightOf="@+id/img_myphoto"
+            android:layout_toEndOf="@+id/img_myphoto" />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_mycode"
+        android:src="@mipmap/ic_launcher"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black" />
+
+     <TextView android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/tv_mymessage"
+         android:text="@string/mymessagetext"
+         android:padding="10dp"
+         android:gravity="left" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black" />
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_myredpackage"
+        android:text="@string/myredpackagetext"
+        android:padding="10dp"
+        android:gravity="left" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/black" />
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_myout"
+        android:text="@string/myouttext"
+        android:padding="10dp"
+        android:gravity="left" />
+
+</LinearLayout>

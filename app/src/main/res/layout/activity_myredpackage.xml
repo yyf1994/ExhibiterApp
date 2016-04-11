@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="10dp"
+        android:id="@+id/text_redpackage" />
+
+    <!--<com.eastfair.mylibrary.PullToRefresh.PtrClassicFrameLayout
+        android:id="@+id/rotate_header_list_view_frame"
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e1e1e1"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="1000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">-->
+        <com.eastfair.exhibiterapp.weight.SupportRecyclerView
+            android:id="@+id/rv_redpackage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.eastfair.exhibiterapp.weight.SupportRecyclerView>
+  <!--  </com.eastfair.mylibrary.PullToRefresh.PtrClassicFrameLayout>-->
+
+
+
+ <!--   <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pull_refresh_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#19000000"
+        android:dividerHeight="4dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true" />-->
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:drawableTop="@mipmap/empty_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="暂无数据"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
+
+</LinearLayout>
+

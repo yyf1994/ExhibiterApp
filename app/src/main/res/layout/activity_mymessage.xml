@@ -1,0 +1,355 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_myname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mynametext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_myname"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_myname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_myname"
+                    android:layout_toRightOf="@+id/tv_myname" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_gsname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mygsnametext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_gsname"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_gsname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_gsname"
+                    android:layout_toRightOf="@+id/tv_gsname" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_myjob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/myjobtext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_myjob"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_myjob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_myjob"
+                    android:layout_toRightOf="@+id/tv_myjob" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_myemail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/myemailtext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_myemail"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_myemail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_myemail"
+                    android:layout_toRightOf="@+id/tv_myemail" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_mynum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/myphonenumtext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_mynum"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_mynum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_mynum"
+                    android:layout_toRightOf="@+id/tv_mynum"
+                    android:enabled="false"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_mypass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/password" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_mypass"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_mypass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_mypass"
+                    android:layout_toRightOf="@+id/tv_mypass" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_mycategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/myfenleitext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_mycategory"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_mycategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_mycategory"
+                    android:layout_toRightOf="@+id/tv_mycategory" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_mygoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mymuditext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_mygoal"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_mygoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_mygoal"
+                    android:layout_toRightOf="@+id/tv_mygoal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_myproperty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mypropertytext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_myproperty"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_myproperty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_myproperty"
+                    android:layout_toRightOf="@+id/tv_myproperty" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_myarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/myareatext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edit_myarea"
+                    android:background="@color/black" />
+
+                <EditText
+                    android:id="@+id/edit_myarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/tv_myarea"
+                    android:layout_toRightOf="@+id/tv_myarea" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/savetext"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+

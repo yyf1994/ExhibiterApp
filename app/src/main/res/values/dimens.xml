@@ -1,0 +1,17 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- 内边距 - 默认 -->
+    <dimen name="padding_default">8dp</dimen>
+    <!-- 文字大小 -  默认 -->
+    <dimen name="textSize_default">15sp</dimen>
+    <!-- 外边距 - 默认 -->
+    <dimen name="margin_default">8dp</dimen>
+    <!-- 拍照pop弹出textview高度-->
+    <dimen name="pop_minHeight">45dp</dimen>
+</resources>

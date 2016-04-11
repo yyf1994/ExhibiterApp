@@ -1,0 +1,158 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="NoTitle" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- progressDialog的风格，设置背景透明色。 -->
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="NoTitle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NoTitle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="page_body" parent="@style/match_match">
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <!-- 宽充满 - 高充满 -->
+    <style name="match_match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- 宽充满 - 高包括 -->
+    <style name="match_wrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 宽包括 - 高包括 -->
+    <style name="wrap_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 宽包括 - 高充满 -->
+    <style name="wrap_match">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- 宽充满 - 高充满 - 纵向 -->
+    <style name="match_match_vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽充满 - 高包括 - 纵向 -->
+    <style name="match_wrap_vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽包括 - 高包括 - 纵向 -->
+    <style name="wrap_wrap_vertical">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽包括 - 高充满 - 纵向 -->
+    <style name="wrap_match_vertical">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽权重 - 高包括 -->
+    <style name="weight_wrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- 宽权重 - 高包括 -->
+    <style name="weight_match">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- 宽权重 - 高包括 - 纵向 -->
+    <style name="weight_wrap_vertical">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽权重 - 高充满 - 纵向 -->
+    <style name="weight_match_vertical">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽包括 - 高权重 -->
+    <style name="wrap_weight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- 宽充满 - 高权重 -->
+    <style name="match_weight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- 宽包括 - 高权重 - 纵向 -->
+    <style name="wrap_weight_vertical">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 宽充满 - 高权重 - 纵向 -->
+    <style name="match_weight_vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 拍照弹窗 -->
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_up_in</item>
+        <item name="android:windowExitAnimation">@anim/push_up_out</item>
+    </style>
+
+</resources>

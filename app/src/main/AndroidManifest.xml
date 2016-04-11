@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.eastfair.exhibiterapp">
+
+    <!--照相-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!--拨打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/NoTitle">
+
+        <activity android:name=".ui.activity.MainActivity">
+
+
+        </activity>
+        <activity android:name=".ui.activity.LogoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.LoginActivity"></activity>
+        <activity android:name=".ui.activity.ForgetActivity"></activity>
+        <activity android:name=".ui.activity.regist.RegistActivity"></activity>
+        <activity android:name=".ui.activity.NewPassActivity"></activity>
+        <activity android:name=".ui.activity.me.MyMessageActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".ui.activity.me.MyRedPackageActivity"></activity>
+        <activity android:name=".ui.activity.DetailActivity"></activity>
+        <activity android:name=".ui.activity.capture.BarcodeScannerActivity"></activity>
+        <activity android:name=".ui.activity.capture.CaptureActivity"></activity>
+        <activity android:name=".ui.activity.SendDemandActivity"></activity>
+        <activity android:name=".ui.activity.exhibits.ExhibitsDetailActivity"></activity>
+        <activity android:name=".ui.activity.exhibitors.ExhibitorsDetailActivity"></activity>
+        <activity android:name=".ui.activity.exhibits.ExhibitsListActivity"></activity>
+        <activity android:name=".ui.activity.ExportActivity"></activity>
+        <activity android:name=".ui.activity.exhibitors.ExhibitorsSearchActivity"></activity>
+        <activity android:name=".ui.activity.exhibits.ExhibitsSearchActivity"></activity>
+        <activity android:name=".ui.activity.WelcomeActivity"></activity>
+        <activity android:name=".ui.activity.regist.CardInfoActivity"></activity>
+        <activity android:name=".ui.activity.regist.VerifyPhoneActivity"></activity>
+    </application>
+
+</manifest>

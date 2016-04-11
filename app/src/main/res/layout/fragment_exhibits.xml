@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settingtiaojiantext"
+            android:textColor="@color/blue"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:id="@+id/tv_shaixuan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/daochutext"
+            android:id="@+id/tv_daochu"
+            android:padding="10dp"
+            android:textColor="@color/blue"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        >
+
+        <!--可侧滑删除，但是有bug-->
+        <!--<com.eastfair.exhibiterapp.weight.exhibitors.TouchableRecyclerView
+            android:id="@+id/contact_member"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp" />-->
+
+        <com.eastfair.exhibiterapp.weight.SupportRecyclerView
+            android:id="@+id/contact_member"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp">
+
+        </com.eastfair.exhibiterapp.weight.SupportRecyclerView>
+
+        <TextView
+            android:id="@+id/contact_dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30.0dip"
+            android:visibility="invisible" />
+
+        <com.eastfair.exhibiterapp.weight.exhibitors.SideBar
+            android:id="@+id/contact_sidebar"
+            android:layout_width="15dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="3dp" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#fffeff</color>
+    <color name="green">#0b751e</color>
+    <color name="blue">#2196F3</color>
+    <color name="orange">#F57C00</color>
+    <color name="black">#080808</color>
+    <color name="glay">#a4a0a0</color>
+
+    <!-- 黑色 - 半透明 -->
+    <color name="black_translucent">#80000000</color>
+    <!-- 透明色 -->
+    <color name="transparent">#00000000</color>
+    <color name="side_bar_text">#4A4A4A</color>
+    <color name="shadow_bg">#66000000</color>
+    <color name="edit_bg">#EFEFF4</color>
+    <color name="darker_gray">#9b9b9b</color>
+    <color name="backgroundplantview">#ff98b028</color>
+    <!-- 灰色 -->
+    <color name="gray">#ff969696</color>
+    <color name="theme">#FFAABD1A</color>
+    <color name="text_indexTab_normal">#FF394407</color>
+    <color name="tabStrip_normal">#FFDBE5B8</color>
+
+</resources>
