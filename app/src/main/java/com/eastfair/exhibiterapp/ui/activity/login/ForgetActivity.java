@@ -1,11 +1,8 @@
-package com.eastfair.exhibiterapp.ui.activity;
+package com.eastfair.exhibiterapp.ui.activity.login;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,51 +14,51 @@ import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.util.RegexChk;
 
-import java.util.HashMap;
-import java.util.Map;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 忘记密码界面---验证码
  */
-public class ForgetActivity extends BaseActivity implements View.OnClickListener{
+public class ForgetActivity extends BaseActivity{
     /**
      * 填写手机号，输入验证码
      */
-    private EditText ed_tel, ed_code;
+    @Bind(R.id.edit_phonenum)
+    EditText ed_tel;
+    @Bind(R.id.edit_code)
+    EditText ed_code;
 
-    private Button btn_code,btn_next;//验证码倒计时
-
+    @Bind(R.id.btn_yanzhengma)
+    Button btn_code;
+    @Bind(R.id.btn_next)
+    Button btn_next;//验证码倒计时
     /**
      * 根据不同的布局设置不同的显示方式
      * */
-    private RelativeLayout rl_phonenum,rl_getphonenum;
-
-    private TextView text_phonenum;
-
-    private Toolbar toolbar_title;
-    private TextView text_Title ;
+    @Bind(R.id.rvlayout_phonenum)
+    RelativeLayout rl_phonenum;
+    @Bind(R.id.rvlayout_getphonenum)
+    RelativeLayout  rl_getphonenum;
+    @Bind(R.id.text_getphonenum)
+    TextView text_phonenum;
+    @Bind(R.id.toolbar_title)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title ;
 
     private TimeCount time;//倒计时
 
-    private ForgetActivity mySelf() {
-        return ForgetActivity.this;
-    }
-
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
+        ButterKnife.bind(this);
         initView();
-
+        init();
     }
 
-    @Override
-    public void registerEvents() {
-        btn_code.setOnClickListener(this);
-        btn_next.setOnClickListener(this);
-
-    }
-
-    @Override
     public void init() {
         time = new TimeCount(60000, 1000);//构造CountDownTimer对象
 //        if (countdown.isRunning()) {
@@ -69,36 +66,20 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 //        }
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            /**
-             * 点击验证码按钮
-             */
-            case R.id.btn_yanzhengma:
-                /**
-                 * 点击获取验证码--判断手机--请求获取验证码的接口--成功--验证码倒计时
-                 */
-                if (getUserTel() == true) {
-                    time.start();//开始计时
-//                    networkDataCode(ed_tel.getText().toString());
-                }
-                break;
-            /**
-             * 点击下一步
-             */
-            case R.id.btn_next:
-                if (getUserEdtext() == true) {
-                    toastS("提交成功");
+    @OnClick(R.id.btn_next)
+    public void next(){
+        if (getUserEdtext() == true) {
+            toastS("提交成功");
 //                    accountTel = ed_tel.getText().toString();
-                    SkipActivity(NewPassActivity.class);
-                }
+            SkipActivity(NewPassActivity.class);
+        }
+    }
 
-                break;
-//            case R.id.tv_Back:
-//                finish();
-//                break;
+    @OnClick(R.id.btn_yanzhengma)
+    public void getcode(){
+        if (getUserTel() == true) {
+            time.start();//开始计时
+//                    networkDataCode(ed_tel.getText().toString());
         }
     }
 
@@ -189,16 +170,6 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
     }*/
 
     private void initView() {
-
-        text_phonenum = (TextView) findViewById(R.id.text_getphonenum);
-        ed_tel = (EditText) findViewById(R.id.edit_phonenum);
-        ed_code = (EditText) findViewById(R.id.edit_code);
-        btn_code = (Button) findViewById(R.id.btn_yanzhengma);
-        btn_next = (Button) findViewById(R.id.btn_next);
-        rl_phonenum = (RelativeLayout) findViewById(R.id.rvlayout_phonenum);
-        rl_getphonenum = (RelativeLayout) findViewById(R.id.rvlayout_getphonenum);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
@@ -228,6 +199,11 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
             btn_code.setClickable(false);
             btn_code.setText(millisUntilFinished /1000+"s");
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
 

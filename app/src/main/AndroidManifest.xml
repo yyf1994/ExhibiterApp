@@ -3,10 +3,10 @@
     package="com.eastfair.exhibiterapp">
 
     <!--照相-->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--拨打电话-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -16,23 +16,26 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".ui.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".ui.activity.LogoActivity">
 
         </activity>
-        <activity android:name=".ui.activity.LoginActivity"></activity>
-        <activity android:name=".ui.activity.ForgetActivity"></activity>
+        <activity android:name=".ui.activity.login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.login.ForgetActivity"></activity>
         <activity android:name=".ui.activity.regist.RegistActivity"></activity>
-        <activity android:name=".ui.activity.NewPassActivity"></activity>
-        <activity android:name=".ui.activity.me.MyMessageActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".ui.activity.login.NewPassActivity"></activity>
+        <activity
+            android:name=".ui.activity.me.MyMessageActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity android:name=".ui.activity.me.MyRedPackageActivity"></activity>
         <activity android:name=".ui.activity.DetailActivity"></activity>
         <activity android:name=".ui.activity.capture.BarcodeScannerActivity"></activity>

@@ -1,49 +1,71 @@
 package com.eastfair.exhibiterapp.ui.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
+import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SendDemandActivity extends BaseActivity implements View.OnClickListener {
-    private SendDemandActivity mySelf() {
-        return SendDemandActivity.this;
-    }
-
     /**
      * 发需求
      */
-    private TextView tv_time;
-    private TextView tv_description;
-    private TextView tv_gsname;
-    private TextView tv_positionnumber;//展位号
-    private TextView tv_gsproperty;
-    private TextView tv_gsarea;
-    private TextView tv_gsprofile;
-    private TextView tv_phonenum;
-    private TextView tv_exhibits;
-    private TextView tv_name1;
-    private TextView tv_name2;
-    private TextView tv_name3;
-    private ImageView img_detial;
-    private ImageView img_photo1;
-    private ImageView img_photo2;
-    private ImageView img_photo3;
-    private Toolbar toolbar_title;
-    private TextView text_Title ;
+    @Bind(R.id.tv_time)
+     TextView tv_time;
+    @Bind(R.id.tv_miaoshu)
+     TextView tv_description;
+    @Bind(R.id.tv_gsname)
+     TextView tv_gsname;
+    @Bind(R.id.tv_zhanweihao)
+     TextView tv_positionnumber;//展位号
+    @Bind(R.id.tv_gsproperty)
+     TextView tv_gsproperty;
+    @Bind(R.id.tv_gsarea)
+     TextView tv_gsarea;
+    @Bind(R.id.tv_gsprofile)
+     TextView tv_gsprofile;
+    @Bind(R.id.tv_phonenum)
+     TextView tv_phonenum;
+    @Bind(R.id.tv_exhibits)
+     TextView tv_exhibits;
+    @Bind(R.id.tv_name1)
+     TextView tv_name1;
+    @Bind(R.id.tv_name2)
+     TextView tv_name2;
+    @Bind(R.id.tv_name3)
+     TextView tv_name3;
+    @Bind(R.id.img_detial)
+    ImageView img_detial;
+    @Bind(R.id.img_photo1)
+    ImageView img_photo1;
+    @Bind(R.id.img_photo2)
+    ImageView img_photo2;
+    @Bind(R.id.img_photo3)
+    ImageView img_photo3;
+    @Bind(R.id.toolbar_title)
+     Toolbar toolbar_title;
 
+     TextView text_Title;
 
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senddemand);
+        ButterKnife.bind(this);
         initView();
+        registerEvents();
     }
 
-    @Override
+
     public void registerEvents() {
         img_photo1.setOnClickListener(this);
         img_photo2.setOnClickListener(this);
@@ -55,30 +77,8 @@ public class SendDemandActivity extends BaseActivity implements View.OnClickList
         tv_exhibits.setOnClickListener(this);
     }
 
-    @Override
-    public void init() {
-
-    }
-
 
     private void initView() {
-        tv_time = (TextView) findViewById(R.id.tv_time);
-        tv_description = (TextView) findViewById(R.id.tv_miaoshu);
-        tv_gsname = (TextView) findViewById(R.id.tv_gsname);
-        tv_positionnumber = (TextView) findViewById(R.id.tv_zhanweihao);
-        tv_gsproperty = (TextView) findViewById(R.id.tv_gsproperty);
-        tv_gsarea = (TextView) findViewById(R.id.tv_gsarea);
-        tv_gsprofile = (TextView) findViewById(R.id.tv_gsprofile);
-        tv_phonenum = (TextView) findViewById(R.id.tv_phonenum);
-        tv_exhibits = (TextView) findViewById(R.id.tv_exhibits);
-        tv_name1 = (TextView) findViewById(R.id.tv_name1);
-        tv_name2 = (TextView) findViewById(R.id.tv_name2);
-        tv_name3 = (TextView) findViewById(R.id.tv_name3);
-        img_detial = (ImageView) findViewById(R.id.img_detial);
-        img_photo1 = (ImageView) findViewById(R.id.img_photo1);
-        img_photo2 = (ImageView) findViewById(R.id.img_photo2);
-        img_photo3 = (ImageView) findViewById(R.id.img_photo3);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
         text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -86,6 +86,7 @@ public class SendDemandActivity extends BaseActivity implements View.OnClickList
         text_Title.setText("消息详情");
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -112,5 +113,9 @@ public class SendDemandActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

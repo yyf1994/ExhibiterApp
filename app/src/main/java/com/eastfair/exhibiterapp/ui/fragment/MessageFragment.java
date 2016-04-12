@@ -23,13 +23,18 @@ import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 消息界面
  */
 public class MessageFragment extends BaseFragment {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private SupportRecyclerView recyclerView;
+    @Bind(R.id.swipeRefreshLayout)
+     SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.recyclerview)
+     SupportRecyclerView recyclerView;
     private List<String> mData;
     //    private MessageAdapter mAdapter;
     private MyRecyclerviewAdapter mAdapter;
@@ -58,6 +63,7 @@ public class MessageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+        ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         String agrs1 = bundle.getString("agrs1");
 
@@ -67,8 +73,6 @@ public class MessageFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        recyclerView = (SupportRecyclerView) view.findViewById(R.id.recyclerview);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         //设置recyclerview
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -89,11 +93,8 @@ public class MessageFragment extends BaseFragment {
         getData1(view);
         //下拉刷新
         dropdownrefresh();
-
         //上拉加载
         upload();
-
-
     }
 
     /**
@@ -290,5 +291,11 @@ public class MessageFragment extends BaseFragment {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

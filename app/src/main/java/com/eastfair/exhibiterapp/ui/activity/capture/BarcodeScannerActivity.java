@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import me.xiaopan.android.barcode.BarcodeScanner;
 import me.xiaopan.android.barcode.BarcodeScanner.BarcodeScanCallback;
 import me.xiaopan.android.barcode.widget.ScanAreaView;
@@ -48,14 +50,21 @@ import com.google.zxing.ResultPoint;
  */
 public class BarcodeScannerActivity extends BaseActivity implements OnCheckedChangeListener {
 	private static final String STATE_FLASH_CHECKED = "STATE_FLASH_CHECKED";
+
+	@Bind(R.id.surface_barcodeScanner)
+	 SurfaceView surfaceView; // 显示画面的视图
+	@Bind(R.id.checkBox_barcodeScanner_flash)
+	 CheckBox flashButton;
+	@Bind(R.id.scanningFrame_barcodeScanner)
+	 ScanAreaView scanAreaView;// 扫描框（取景器）
+	@Bind(R.id.tv_sm)
+	TextView tv_sm;
+
 	private int beepId;// 哔哔音效
 	private BarcodeScanner barcodeScanner; // 解码器
 	private SoundPool soundPool;// 音效池
 	private CameraManager cameraManager;
 	private OpenCameraRunnable openCameraRunnable;
-	private SurfaceView surfaceView; // 显示画面的视图
-	private CheckBox flashButton;
-	private ScanAreaView scanAreaView;// 扫描框（取景器）
 	private String subUrl;
 	private String codeDate;
 	private Handler handlerScan;
@@ -64,22 +73,22 @@ public class BarcodeScannerActivity extends BaseActivity implements OnCheckedCha
 	private String codeOld;
 
 	@Override
-	public void findViews() {
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_barcode_scan);
-		surfaceView = (SurfaceView) findViewById(R.id.surface_barcodeScanner);
-		scanAreaView = (ScanAreaView) findViewById(R.id.scanningFrame_barcodeScanner);
-		flashButton = (CheckBox) findViewById(R.id.checkBox_barcodeScanner_flash);
-		TextView tv_sm = (TextView) findViewById(R.id.tv_sm);
+		ButterKnife.bind(this);
 		tv_sm.setText("请将条码置于扫描框内");
 //		helper = new FileHelper(getApplicationContext());
+		registerEvents();
+		init();
 	}
 
-	@Override
+
 	public void registerEvents() {
 		flashButton.setOnCheckedChangeListener(this);
 	}
 
-	@Override
+
 	public void init() {
 
 		ScanMethod();
@@ -117,6 +126,7 @@ public class BarcodeScannerActivity extends BaseActivity implements OnCheckedCha
 	protected void onDestroy() {
 		soundPool.release();
 		barcodeScanner.release();
+		ButterKnife.unbind(this);
 		super.onDestroy();
 	}
 
@@ -370,4 +380,5 @@ public class BarcodeScannerActivity extends BaseActivity implements OnCheckedCha
 		// super.onBackPressed();
 		mainDestroy();
 	}
+
 }

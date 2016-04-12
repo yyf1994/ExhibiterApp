@@ -50,6 +50,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * This activity opens the camera and does the actual scanning on a background
  * thread. It draws a viewfinder to help the user place the barcode correctly,
@@ -62,23 +65,27 @@ import java.util.List;
 public final class CaptureActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
+    @Bind(R.id.capture_preview)
+     SurfaceView scanPreview = null;
+    @Bind(R.id.capture_container)
+     RelativeLayout scanContainer;
+    @Bind(R.id.capture_crop_view)
+     RelativeLayout scanCropView;
+    @Bind(R.id.capture_scan_line)
+     ImageView scanLine;
+    @Bind(R.id.toolbar_title)
+     Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+     TextView text_Title;
+    @Bind(R.id.scanrecord)
+     SupportRecyclerView recyclerView;
 
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
-
-    private SurfaceView scanPreview = null;
-    private RelativeLayout scanContainer;
-    private RelativeLayout scanCropView;
-    private ImageView scanLine;
-
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
-
-    private Toolbar toolbar_title;
-    private TextView text_Title;
-    private SupportRecyclerView recyclerView;
     private MyRecyclerviewAdapter mAdapter;
     private List<String> mData;
     public Handler getHandler() {
@@ -96,14 +103,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_capture);
-
-        scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
-        scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
-        scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
-        scanLine = (ImageView) findViewById(R.id.capture_scan_line);
-        recyclerView = (SupportRecyclerView) findViewById(R.id.scanrecord);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
@@ -175,6 +175,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
     @Override
     protected void onDestroy() {
         inactivityTimer.shutdown();
+        ButterKnife.unbind(this);
         super.onDestroy();
     }
 

@@ -30,16 +30,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 展商感兴趣界面
  */
-public class ExhibitorsInterestFragment extends BaseFragment implements View.OnClickListener{
+public class ExhibitorsInterestFragment extends BaseFragment{
+    @Bind(R.id.contact_sidebar)
+     SideBar mSideBar;
+    @Bind(R.id.contact_dialog)
+     TextView mUserDialog;
+    @Bind(R.id.tv_daochu)
+     TextView tv_daochu;
+    @Bind(R.id.tv_shaixuan)
+     TextView tv_shaixuan;
+    @Bind(R.id.contact_member)
+     SupportRecyclerView mRecyclerView;
 
-    private SideBar mSideBar;
-    private TextView mUserDialog;
-    private TextView tv_daochu;
-    private TextView tv_shaixuan;
-    private SupportRecyclerView mRecyclerView;
     private ContactModel mModel;
     private List<ContactModel.MembersEntity> mMembers = new ArrayList<>();
     private CharacterParser characterParser;
@@ -72,16 +81,15 @@ public class ExhibitorsInterestFragment extends BaseFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exhibitors, container, false);
+        ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
-        initView(view);
+        initView();
         setListener();
         return view;
     }
 
     private void setListener() {
-        tv_daochu.setOnClickListener(this);
-        tv_shaixuan.setOnClickListener(this);
         mAdapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
@@ -99,14 +107,9 @@ public class ExhibitorsInterestFragment extends BaseFragment implements View.OnC
     }
 
 
-    private void initView(View view) {
+    private void initView() {
         characterParser = CharacterParser.getInstance();
         pinyinComparator = new PinyinComparator();
-        mSideBar = (SideBar) view.findViewById(R.id.contact_sidebar);
-        mUserDialog = (TextView) view.findViewById(R.id.contact_dialog);
-        mRecyclerView = (SupportRecyclerView) view.findViewById(R.id.contact_member);
-        tv_daochu = (TextView) view.findViewById(R.id.tv_daochu);
-        tv_shaixuan = (TextView) view.findViewById(R.id.tv_shaixuan);
         tv_shaixuan.setVisibility(View.VISIBLE);
         mSideBar.setTextView(mUserDialog);
 
@@ -252,16 +255,19 @@ public class ExhibitorsInterestFragment extends BaseFragment implements View.OnC
         Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
 
     }
+    @OnClick(R.id.tv_daochu)
+    public void daochu() {
+        SkipActivity(ExportActivity.class);
+    }
+
+    @OnClick(R.id.tv_shaixuan)
+    public void shaixuan() {
+        Toast.makeText(getActivity(), "quanbu", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_daochu:
-                SkipActivity(ExportActivity.class);
-                break;
-            case R.id.tv_shaixuan:
-//                SkipActivity(ExportActivity.class);
-                break;
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

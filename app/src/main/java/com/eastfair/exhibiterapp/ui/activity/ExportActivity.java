@@ -1,71 +1,60 @@
 package com.eastfair.exhibiterapp.ui.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
-import com.eastfair.exhibiterapp.ui.activity.exhibits.ExhibitsListActivity;
 
-public class ExportActivity extends BaseActivity implements View.OnClickListener {
-    private ExportActivity mySelf() {
-        return ExportActivity.this;
-    }
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    /**
-     * 导出界面
-     */
-    private EditText edit_email;
-    private Button btn_ok;
-    private Toolbar toolbar_title;
-    private TextView text_Title ;
+/**
+ * 导出界面
+ */
+public class ExportActivity extends BaseActivity  {
 
-
+    @Bind(R.id.text_title)
+    TextView textTitle;
+    @Bind(R.id.toolbar_title)
+    Toolbar toolbarTitle;
+    @Bind(R.id.edit_email)
+    EditText editEmail;
+    @Bind(R.id.btn_ok)
+    Button btnOk;
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export);
+        ButterKnife.bind(this);
         initView();
-    }
-
-    @Override
-    public void registerEvents() {
-        btn_ok.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-
     }
 
 
     private void initView() {
-        edit_email = (EditText) findViewById(R.id.edit_email);
-        btn_ok = (Button) findViewById(R.id.btn_ok);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
-        setSupportActionBar(toolbar_title);
+        setSupportActionBar(toolbarTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
-        text_Title.setText("导出");
+        textTitle.setText("导出");
 
     }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            /**
-             * 导出
-             */
-            case R.id.btn_ok:
-//                CallPhoneNum("tel:10086");
-                break;
-        }
+
+    @OnClick(R.id.btn_ok)
+    public void ok(View view) {
+        // TODO submit data to server...
+        Toast.makeText(this,"111",Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -73,5 +62,10 @@ public class ExportActivity extends BaseActivity implements View.OnClickListener
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

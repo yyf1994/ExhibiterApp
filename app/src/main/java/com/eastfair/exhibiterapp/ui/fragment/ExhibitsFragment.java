@@ -31,16 +31,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 展品界面
  */
-public class ExhibitsFragment extends BaseFragment  implements View.OnClickListener {
+public class ExhibitsFragment extends BaseFragment {
 
-    private SideBar mSideBar;
-    private TextView mUserDialog;
-    private TextView tv_daochu;
-    private TextView tv_all;
-    private SupportRecyclerView mRecyclerView;
+    @Bind(R.id.contact_sidebar)
+    SideBar mSideBar;
+    @Bind(R.id.contact_dialog)
+    TextView mUserDialog;
+    @Bind(R.id.tv_daochu)
+    TextView tv_daochu;
+    @Bind(R.id.tv_shaixuan)
+    TextView tv_all;
+    @Bind(R.id.contact_member)
+    SupportRecyclerView mRecyclerView;
+
     private ContactModel mModel;
     private List<ContactModel.MembersEntity> mMembers = new ArrayList<>();
     private CharacterParser characterParser;
@@ -69,6 +79,7 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exhibits, container, false);
+        ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
        /* String agrs1 = bundle.getString("agrs1");
         TextView tv = (TextView)view.findViewById(R.id.tv_location);
@@ -79,8 +90,6 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
     }
 
     private void setListener() {
-        tv_daochu.setOnClickListener(this);
-        tv_all.setOnClickListener(this);
         mAdapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
@@ -101,11 +110,6 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
     private void initView(View view) {
         characterParser = CharacterParser.getInstance();
         pinyinComparator = new PinyinComparator();
-        mSideBar = (SideBar) view.findViewById(R.id.contact_sidebar);
-        mUserDialog = (TextView) view.findViewById(R.id.contact_dialog);
-        mRecyclerView = (SupportRecyclerView) view.findViewById(R.id.contact_member);
-        tv_daochu = (TextView) view.findViewById(R.id.tv_daochu);
-        tv_all = (TextView) view.findViewById(R.id.tv_shaixuan);
         mSideBar.setTextView(mUserDialog);
         tv_all.setVisibility(View.VISIBLE);
         tv_all.setText("显示全部");
@@ -121,7 +125,7 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
 
     public void getNetData() {
 
-        String tempData ="{\"groupName\":\"中国\",\"members\":[{\"id\":\"d1feb5db2\",\"username\":\"彭怡1\"},{\"id\":\"d1feb5db2\",\"username\":\"方谦\"},{\"id\":\"dd2feb5db2\",\"username\":\"谢鸣瑾\"},{\"id\":\"dd2478fb5db2\",\"username\":\"孔秋\"},{\"id\":\"dd24cd1feb5db2\",\"username\":\"曹莺安\"},{\"id\":\"dd2478eb5db2\",\"username\":\"酆有松\"},{\"id\":\"dd2478b5db2\",\"username\":\"姜莺岩\"},{\"id\":\"dd2eb5db2\",\"username\":\"谢之轮\"},{\"id\":\"dd2eb5db2\",\"username\":\"钱固茂\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"潘浩\"},{\"id\":\"dd24ab5db2\",\"username\":\"花裕彪\"},{\"id\":\"dd24ab5db2\",\"username\":\"史厚婉\"},{\"id\":\"dd24a00d1feb5db2\",\"username\":\"陶信勤\"},{\"id\":\"dd24a5db2\",\"username\":\"水天固\"},{\"id\":\"dd24a5db2\",\"username\":\"柳莎婷\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"冯茜\"},{\"id\":\"dd24a0eb5db2\",\"username\":\"吕言栋\"}]}";
+        String tempData = "{\"groupName\":\"中国\",\"members\":[{\"id\":\"d1feb5db2\",\"username\":\"彭怡1\"},{\"id\":\"d1feb5db2\",\"username\":\"方谦\"},{\"id\":\"dd2feb5db2\",\"username\":\"谢鸣瑾\"},{\"id\":\"dd2478fb5db2\",\"username\":\"孔秋\"},{\"id\":\"dd24cd1feb5db2\",\"username\":\"曹莺安\"},{\"id\":\"dd2478eb5db2\",\"username\":\"酆有松\"},{\"id\":\"dd2478b5db2\",\"username\":\"姜莺岩\"},{\"id\":\"dd2eb5db2\",\"username\":\"谢之轮\"},{\"id\":\"dd2eb5db2\",\"username\":\"钱固茂\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"潘浩\"},{\"id\":\"dd24ab5db2\",\"username\":\"花裕彪\"},{\"id\":\"dd24ab5db2\",\"username\":\"史厚婉\"},{\"id\":\"dd24a00d1feb5db2\",\"username\":\"陶信勤\"},{\"id\":\"dd24a5db2\",\"username\":\"水天固\"},{\"id\":\"dd24a5db2\",\"username\":\"柳莎婷\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"冯茜\"},{\"id\":\"dd24a0eb5db2\",\"username\":\"吕言栋\"}]}";
         try {
             Gson gson = new GsonBuilder().create();
             mModel = gson.fromJson(tempData, ContactModel.class);
@@ -159,7 +163,7 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
             @Override
             public void bindData(MyRecyclerviewHolder holder, final int position, Object item) {
 
-                if(item ==null){
+                if (item == null) {
                     return;
                 }
                 String name = mAllLists.get(position).getUsername();
@@ -250,16 +254,20 @@ public class ExhibitsFragment extends BaseFragment  implements View.OnClickListe
 
     }
 
+    @OnClick(R.id.tv_daochu)
+    public void daochu() {
+        SkipActivity(ExportActivity.class);
+    }
+
+    @OnClick(R.id.tv_shaixuan)
+    public void shaixuan() {
+        Toast.makeText(getActivity(), "quanbu", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_daochu:
-                SkipActivity(ExportActivity.class);
-                break;
-            case R.id.tv_shaixuan:
-                Toast.makeText(getActivity(),"quanbu",Toast.LENGTH_SHORT).show();
-                break;
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
 }

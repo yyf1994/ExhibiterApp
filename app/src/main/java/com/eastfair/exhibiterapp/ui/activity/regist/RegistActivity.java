@@ -3,6 +3,7 @@ package com.eastfair.exhibiterapp.ui.activity.regist;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
@@ -25,17 +26,24 @@ import com.eastfair.exhibiterapp.util.SDUtil;
 
 import java.io.File;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 注册
- * */
-public class RegistActivity extends BaseActivity implements View.OnClickListener {
+ */
+public class RegistActivity extends BaseActivity {
+    @Bind(R.id.img_photo)
+    ImageView img_photo;
+    @Bind(R.id.text_nocard)
+    TextView text_nocard;
+    @Bind(R.id.toolbar_title)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title;
 
-    private ImageView img_photo;
-    private TextView text_nocard;
-    private Toolbar toolbar_title;
-    private TextView text_Title ;
-
-//    TextView tv_photonew, tv_pic, tv_no;
+    //    TextView tv_photonew, tv_pic, tv_no;
 //    private PopupWindow p2;
 //    private View popView2;
     private File tuTempFile;
@@ -44,8 +52,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             SDUtil.getPhotoFileName());
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        ButterKnife.bind(this);
         /**
          * 点击头像按钮弹出的窗口
          */
@@ -62,47 +72,39 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         initView();
     }
 
-    @Override
+    @OnClick(R.id.img_photo)
+    public void cardphoto() {
+        final String[] mData = {"拍照", "从相册选取"};
+        DialogUtil.showDialog(RegistActivity.this, "", mData, new DialogUtil.OnClickItemListener() {
+            @Override
+            public void onClickItem(int which) {
+                if (mData[0].equals("拍照")) {
+                    openTuKu3();
+                } else if (mData[1].equals("从相册选取")) {
+                    openPhotoHead();
+                }
+            }
+        });
+    }
+
+    @OnClick(R.id.text_nocard)
+    public void nocard() {
+        Intent intent = new Intent(RegistActivity.this, VerifyPhoneActivity.class);
+        /**
+         * verifytag = 1,有手机号，进入验证手机页面，直接发送验证码
+         * verifytag = 2,无手机号，进入验证手机页面，需要填写手机号码，然后再发送验证码
+         * */
+        intent.putExtra("verifytag", "2");
+        startActivity(intent);
+        finish();
+    }
+
     public void registerEvents() {
-        img_photo.setOnClickListener(this);
-        text_nocard.setOnClickListener(this);
        /* tv_photonew.setOnClickListener(this);
         tv_pic.setOnClickListener(this);
         tv_no.setOnClickListener(this);*/
     }
 
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_photo:
-//                displaywindow();
-                final String[] mData = {"拍照", "从相册选取"};
-                DialogUtil.showDialog(RegistActivity.this, "", mData, new DialogUtil.OnClickItemListener() {
-                    @Override
-                    public void onClickItem(int which) {
-                        if(mData[0].equals("拍照")){
-                            openTuKu3();
-                        }else if(mData[1].equals("从相册选取")){
-                            openPhotoHead();
-                        }
-                    }
-                });
-                break;
-            case R.id.text_nocard:
-                Intent intent = new Intent(RegistActivity.this,VerifyPhoneActivity.class);
-                /**
-                 * verifytag = 1,有手机号，进入验证手机页面，直接发送验证码
-                 * verifytag = 2,无手机号，进入验证手机页面，需要填写手机号码，然后再发送验证码
-                 * */
-                intent.putExtra("verifytag","2");
-                startActivity(intent);
-                finish();
-                break;
        /*     case R.id.tv_pic:
                 openTuKu3();
                 p2.dismiss();
@@ -115,14 +117,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 p2.dismiss();
                 break;*/
 
-        }
-    }
-
     private void initView() {
-        img_photo = (ImageView) findViewById(R.id.img_photo);
-        text_nocard = (TextView) findViewById(R.id.text_nocard);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
@@ -162,6 +157,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         intent.putExtra("outputY", 180);
         startActivityForResult(intent, 100);
     }
+
     /**
      * pop拍头像有裁切功能
      */
@@ -172,6 +168,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         cameraintent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
         startActivityForResult(cameraintent, 101);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -187,7 +184,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
             case RESULT_OK:
                 toastS("拍照完成");
-                Intent intent = new Intent(RegistActivity.this,CardInfoActivity.class);
+                Intent intent = new Intent(RegistActivity.this, CardInfoActivity.class);
                 /**
                  * verifytag = 1,有手机号，进入验证手机页面，直接发送验证码
                  * verifytag = 2,无手机号，进入验证手机页面，需要填写手机号码，然后再发送验证码
@@ -197,5 +194,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

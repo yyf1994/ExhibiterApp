@@ -1,5 +1,6 @@
 package com.eastfair.exhibiterapp.ui.activity.exhibits;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,45 +22,37 @@ import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExhibitsSearchActivity extends BaseActivity implements View.OnClickListener {
-    private ExhibitsSearchActivity mySelf() {
-        return ExhibitsSearchActivity.this;
-    }
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class ExhibitsSearchActivity extends BaseActivity {
 
     /**
      * 展品搜索界面
      */
-    private Toolbar toolbar_search;
-    private EditText edit_search;
-    private ImageView img_search;
-    private TextView tv_searchresult;
-    private SupportRecyclerView recyclerView;
+    @Bind(R.id.toolbar_search)
+    Toolbar toolbar_search;
+    @Bind(R.id.edit_search)
+    EditText edit_search;
+    @Bind(R.id.img_search)
+    ImageView img_search;
+    @Bind(R.id.tv_searchresult)
+    TextView tv_searchresult;
+    @Bind(R.id.rv_searchresult)
+    SupportRecyclerView recyclerView;
     private MyRecyclerviewAdapter mAdapter;
     private List<String> mData;
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibitors_search);
+        ButterKnife.bind(this);
         initView();
     }
 
-    @Override
-    public void registerEvents() {
-        img_search.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-
     private void initView() {
-        edit_search = (EditText) findViewById(R.id.edit_search);
-        img_search = (ImageView) findViewById(R.id.img_search);
-        tv_searchresult = (TextView) findViewById(R.id.tv_searchresult);
-        toolbar_search = (Toolbar) findViewById(R.id.toolbar_search);
-        recyclerView = (SupportRecyclerView) findViewById(R.id.rv_searchresult);
         setSupportActionBar(toolbar_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -77,17 +70,17 @@ public class ExhibitsSearchActivity extends BaseActivity implements View.OnClick
     private void getData() {
         mData = new ArrayList<>();
 
-        for(int i = 0;i<10;i++){
-            mData.add("data"+i);
+        for (int i = 0; i < 10; i++) {
+            mData.add("data" + i);
         }
         setUI();
     }
 
     private void setUI() {
-        if(mData == null){
+        if (mData == null) {
             recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
-        mAdapter = new MyRecyclerviewAdapter(this,mData){
+        mAdapter = new MyRecyclerviewAdapter(this, mData) {
 
             @Override
             public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
@@ -101,7 +94,7 @@ public class ExhibitsSearchActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void bindData(MyRecyclerviewHolder holder, int position, Object item) {
-                if(item ==null){
+                if (item == null) {
                     return;
                 }
                 holder.setText(R.id.tv_gsname, item.toString());
@@ -128,19 +121,16 @@ public class ExhibitsSearchActivity extends BaseActivity implements View.OnClick
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            /**
-             * 搜索
-             */
-            case R.id.img_search:
-                tv_searchresult.setVisibility(View.VISIBLE);
-                tv_searchresult.setText("查询出3条数据");
-               getData();
-                break;
-        }
+    /**
+     * 展商人员按钮点击事件
+     */
+    @OnClick(R.id.img_search)
+    public void search() {
+        tv_searchresult.setVisibility(View.VISIBLE);
+        tv_searchresult.setText("查询出3条数据");
+        getData();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -148,5 +138,10 @@ public class ExhibitsSearchActivity extends BaseActivity implements View.OnClick
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

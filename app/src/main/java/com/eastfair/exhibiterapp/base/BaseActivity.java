@@ -48,9 +48,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         createTime = System.currentTimeMillis();
         // 添加Activity到容器中
         activitys.add(this);
-        findViews();
-        registerEvents();
-        init();
+//        findViews();
+//        registerEvents();
+//        init();
     }
     /**
      * 跳转
@@ -120,11 +120,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public abstract void findViews();
-
-    public abstract void registerEvents();
-
-    public abstract void init();
+//    public abstract void findViews();
+//
+//    public abstract void registerEvents();
+//
+//    public abstract void init();
 
     /**
      * 开始加载数据时候的进度

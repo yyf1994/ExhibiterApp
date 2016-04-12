@@ -1,43 +1,41 @@
 package com.eastfair.exhibiterapp.ui.activity;
 
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
+import com.eastfair.exhibiterapp.ui.activity.login.LoginActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 启动图
  */
 public class LogoActivity extends BaseActivity {
-    private ImageView logo_imageview;
-    private View view;
+
+    @Bind(R.id.logo_imageview)
+     ImageView logoImageview;
+    @Bind(R.id.view)
+     LinearLayout view;
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
         setContentView(R.layout.activity_logo);
-        view = findViewById(R.id.view);
-        logo_imageview = (ImageView) findViewById(R.id.logo_imageview);
+        ButterKnife.bind(this);
         /**
          * 渐变动画
          */
         view.setAnimation(AnimationUtils.loadAnimation(LogoActivity.this,
                 R.anim.two_in));
-
-
-    }
-
-    @Override
-    public void registerEvents() {
-
-    }
-
-    @Override
-    public void init() {
-
         initHandle();
     }
 
@@ -57,5 +55,10 @@ public class LogoActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 
 }

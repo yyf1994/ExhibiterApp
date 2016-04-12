@@ -14,17 +14,19 @@ import com.eastfair.exhibiterapp.adapter.FragmentPagerAdapter1;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 展商界面
  */
 public class ExhibitorsTabLayoutFragment extends Fragment {
+    @Bind(R.id.viewpager)
+    ViewPager viewPager;
+    @Bind(R.id.sliding_tabs)
+    TabLayout tabLayout;
 
     private FragmentPagerAdapter1 pagerAdapter;
-
-    private ViewPager viewPager;
-
-    private TabLayout tabLayout;
-
     private List<Fragment> list_fragment;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
 
@@ -52,6 +54,8 @@ public class ExhibitorsTabLayoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exhibitors_tablayout, container, false);
+        ButterKnife.bind(this, view);
+
         Bundle bundle = getArguments();
         String agrs1 = bundle.getString("agrs1");
         //初始化各fragment
@@ -68,18 +72,20 @@ public class ExhibitorsTabLayoutFragment extends Fragment {
         list_title.add("关注");
         list_title.add("感兴趣");
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.addTab(tabLayout.newTab().setText(list_title.get(0)));
         tabLayout.addTab(tabLayout.newTab().setText(list_title.get(1)));
 
-        pagerAdapter = new FragmentPagerAdapter1(getChildFragmentManager(),list_fragment,list_title);
+        pagerAdapter = new FragmentPagerAdapter1(getChildFragmentManager(), list_fragment, list_title);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         return view;
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

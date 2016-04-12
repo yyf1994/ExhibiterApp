@@ -25,41 +25,67 @@ import com.eastfair.exhibiterapp.ui.fragment.ExhibitsFragment;
 import com.eastfair.exhibiterapp.ui.fragment.MessageFragment;
 import com.eastfair.exhibiterapp.ui.fragment.MyFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener,View.OnClickListener{
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private BottomNavigationBar bottomNavigation;
-    private int lastSelectedPosition = 0;
-    private String TAG = MainActivity.class.getSimpleName();
-    private String ExhibitorsTAG = "zhanshang";
-    private String ExhibitsTAG = "zhanpin";
+public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+
+    @Bind(R.id.bottom_navigation)
+     BottomNavigationBar bottomNavigation;
+    @Bind(R.id.toolbar_title)
+     Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+     TextView text_Title ;
+    @Bind(R.id.text_title1)
+     TextView text_regist ;
+    @Bind(R.id.img_search)
+     ImageView img_search ;
+
+     int lastSelectedPosition = 0;
+     String TAG = MainActivity.class.getSimpleName();
+     String ExhibitorsTAG = "zhanshang";
+     String ExhibitsTAG = "zhanpin";
     private MessageFragment mMessageFragment;
     private ExhibitionFragment mExhibitionFragment;
     private ExhibitorsTabLayoutFragment exhibitorsTabLayoutFragment;
     private ExhibitsFragment mExhibitsFragment;
     private MyFragment mMyFragment;
-    private Toolbar toolbar_title;
-    private TextView text_Title ;
-    private TextView text_regist ;
-    private ImageView img_search ;
+
     private String searchtag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         initView();
-        setListener();
     }
 
-    private void setListener() {
-        text_regist.setOnClickListener(this);
-        img_search.setOnClickListener(this);
+    /**
+     * 发需求按钮点击事件
+     * */
+    @OnClick(R.id.text_title1)
+    public void sendDeman(){
+        //                Intent intent = new Intent(this, SendDemandActivity.class);
+//                startActivity(intent);
+    }
+
+    /**
+     * 搜索按钮点击事件
+     * */
+    @OnClick(R.id.img_search)
+    public void search(){
+        if(searchtag.equals(ExhibitorsTAG)){//展商
+            Intent intent = new Intent(this, ExhibitorsSearchActivity.class);
+            startActivity(intent);
+        }else if(searchtag.equals(ExhibitsTAG)){//展品
+            Intent intent = new Intent(this, ExhibitsSearchActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void initView() {
-        bottomNavigation = (BottomNavigationBar) findViewById(R.id.bottom_navigation);
-        img_search = (ImageView) findViewById(R.id.img_search);
         bottomNavigation
                 .addItem(new BottomNavigationItem(R.mipmap.ic_location_on_white_24dp, "消息").setActiveColor(R.color.orange))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_find_replace_white_24dp, "展商").setActiveColor(R.color.blue))
@@ -70,13 +96,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .initialise();
         setDefaultFragment();
         bottomNavigation.setTabSelectedListener(this);
-
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
-        text_regist = (TextView) toolbar_title.findViewById(R.id.text_title1);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         getSupportActionBar().setTitle("");
         text_Title.setText("消息");
         text_regist.setText("发需求");
@@ -162,27 +183,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.text_title1://发需求
-//                Intent intent = new Intent(this, SendDemandActivity.class);
-//                startActivity(intent);
-                break;
-            case R.id.img_search://查找
-                if(searchtag.equals(ExhibitorsTAG)){//展商
-                    Intent intent = new Intent(this, ExhibitorsSearchActivity.class);
-                    startActivity(intent);
-                }else if(searchtag.equals(ExhibitsTAG)){//展品
-                    Intent intent = new Intent(this, ExhibitsSearchActivity.class);
-                    startActivity(intent);
-                }
-
-                break;
-        }
-
-
-    }
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Toast.makeText(MainActivity.this,"扫码",Toast.LENGTH_SHORT).show();
@@ -201,5 +201,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             Toast.makeText(MainActivity.this,"result"+scanResult,Toast.LENGTH_SHORT).show();
 //            resultTextView.setText(scanResult);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.eastfair.exhibiterapp.ui.activity.exhibits;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,42 +21,34 @@ import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExhibitsListActivity extends BaseActivity implements View.OnClickListener {
-    private ExhibitsListActivity mySelf() {
-        return ExhibitsListActivity.this;
-    }
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class ExhibitsListActivity extends BaseActivity {
 
     /**
      * 展品列表
      */
-    private SupportRecyclerView recyclerView;
-    private MyRecyclerviewAdapter mAdapter;
+    @Bind(R.id.rv_exhibitslist)
+     SupportRecyclerView recyclerView;
+    @Bind(R.id.toolbar_title)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title;
+     private MyRecyclerviewAdapter mAdapter;
+
     private List<String> mData;
-    private Toolbar toolbar_title;
-    private TextView text_Title;
-
 
     @Override
-    public void findViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibitslist);
+        ButterKnife.bind(this);
         initView();
-    }
-
-    @Override
-    public void registerEvents() {
-
-    }
-
-    @Override
-    public void init() {
-
     }
 
 
     private void initView() {
-        recyclerView = (SupportRecyclerView) findViewById(R.id.rv_exhibitslist);
-        toolbar_title = (Toolbar) findViewById(R.id.toolbar_title);
-        text_Title = (TextView) toolbar_title.findViewById(R.id.text_title);
         getData();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ExhibitsListActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -115,12 +108,6 @@ public class ExhibitsListActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -129,6 +116,12 @@ public class ExhibitsListActivity extends BaseActivity implements View.OnClickLi
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
 }
