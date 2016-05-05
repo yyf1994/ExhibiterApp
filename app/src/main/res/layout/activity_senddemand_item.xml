@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="10dp"
+            android:text="接收对象" />
+
+        <TextView
+            android:id="@+id/tv_jieshouduixiang"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_time"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/btn_bg_zise"
+            android:textColor="@color/white"
+            android:text="选择接收对象" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="您选择了：" />
+
+    <TextView
+        android:id="@+id/tv_miaoshu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="具体描述" />
+
+    <EditText
+        android:id="@+id/edit_miaoshu"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="@string/miaoshutext"
+        android:background="@mipmap/bg_edit"
+        android:gravity="left|top"
+        android:cursorVisible="false"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_addphoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@mipmap/bg_edit"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/img_addphoto"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/addphoto"/>
+        <TextView
+            android:id="@+id/tv_addphoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/addphoto_text"
+            android:text="添加图片" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="10dp"
+        />
+
+    <include
+        layout="@layout/activity_scanrecording"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp" />
+</LinearLayout>

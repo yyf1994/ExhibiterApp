@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
@@ -73,12 +74,15 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
      RelativeLayout scanCropView;
     @Bind(R.id.capture_scan_line)
      ImageView scanLine;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.capture_toolbar)
      Toolbar toolbar_title;
     @Bind(R.id.text_title)
      TextView text_Title;
     @Bind(R.id.scanrecord)
      SupportRecyclerView recyclerView;
+
+    @Bind(R.id.tv_title)
+    TextView tv_title;
 
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
@@ -108,6 +112,11 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         text_Title.setText("扫一扫");
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+        tp = tv_title.getPaint();
+        tp.setFakeBoldText(true);
+        toolbar_title.setNavigationIcon(R.mipmap.back);
 
         getData();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CaptureActivity.this);

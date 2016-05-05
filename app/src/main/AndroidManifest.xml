@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!--拨打电话-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--请求网络-->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,18 +18,16 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".ui.activity.MainActivity">
-
-
-        </activity>
-        <activity android:name=".ui.activity.LogoActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.LogoActivity">
+
+        </activity>
+        <activity android:name=".ui.activity.login.LoginActivity">
         </activity>
         <activity android:name=".ui.activity.login.ForgetActivity"></activity>
         <activity android:name=".ui.activity.regist.RegistActivity"></activity>
@@ -40,7 +40,9 @@
         <activity android:name=".ui.activity.DetailActivity"></activity>
         <activity android:name=".ui.activity.capture.BarcodeScannerActivity"></activity>
         <activity android:name=".ui.activity.capture.CaptureActivity"></activity>
-        <activity android:name=".ui.activity.SendDemandActivity"></activity>
+        <activity android:name=".ui.activity.SendDemandActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity android:name=".ui.activity.exhibits.ExhibitsDetailActivity"></activity>
         <activity android:name=".ui.activity.exhibitors.ExhibitorsDetailActivity"></activity>
         <activity android:name=".ui.activity.exhibits.ExhibitsListActivity"></activity>
@@ -50,6 +52,7 @@
         <activity android:name=".ui.activity.WelcomeActivity"></activity>
         <activity android:name=".ui.activity.regist.CardInfoActivity"></activity>
         <activity android:name=".ui.activity.regist.VerifyPhoneActivity"></activity>
+        <activity android:name=".ui.activity.message.MessageDetailActivity"></activity>
     </application>
 
 </manifest>

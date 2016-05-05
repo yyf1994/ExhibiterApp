@@ -2,8 +2,8 @@ package com.eastfair.exhibiterapp.ui.activity.exhibits;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +19,12 @@ public class ExhibitsDetailActivity extends BaseActivity {
     /**
      * 展品详情界面
      */
-    @Bind(R.id.tv_zpname)
-     TextView tv_name;
-    @Bind(R.id.tv_type1)
-     TextView tv_type;
-    @Bind(R.id.tv_description1)
-     TextView tv_description;
+    @Bind(R.id.tv_exhibits_name)
+     TextView tv_exhibits_name;
+    @Bind(R.id.tv_exhibits_type)
+     TextView tv_exhibits_type;
+    @Bind(R.id.tv_activities)
+     TextView tv_activities;
     @Bind(R.id.tv_gsname)
      TextView tv_gsname;
     @Bind(R.id.tv_zhanweihao)
@@ -53,10 +53,13 @@ public class ExhibitsDetailActivity extends BaseActivity {
      ImageView img_photo2;
     @Bind(R.id.img_photo3)
      ImageView img_photo3;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.exhibitsdetail_toolbar)
      Toolbar toolbar_title;
     @Bind(R.id.text_title)
      TextView text_Title;
+    @Bind(R.id.tv_title)
+    TextView tv_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,11 @@ public class ExhibitsDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         text_Title.setText("展品详情");
+        toolbar_title.setNavigationIcon(R.mipmap.back);
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+        tp = tv_title.getPaint();
+        tp.setFakeBoldText(true);
     }
 
     /**

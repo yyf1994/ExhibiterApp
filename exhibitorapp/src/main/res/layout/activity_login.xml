@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_login"
+    android:orientation="vertical">
+
+    <AutoCompleteTextView
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/bg_edittextshouji"
+        android:paddingLeft="40dp"
+        android:layout_gravity="center"
+        android:id="@+id/actv_zhanshang"
+        android:hint="@string/zhanshanghint"
+        android:layout_marginTop="250dp"
+        android:singleLine = "true"
+        />
+
+    <EditText
+        android:id="@+id/edit_code"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/bg_yanzhengma"
+        android:hint="@string/yanzhengmahint"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="40dp" />
+
+    <TextView
+        android:id="@+id/tv_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="35dp"
+        android:text="@string/calltext"
+        android:textColor="@color/addphoto_text"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/bg_button"
+        android:textColor="@color/white"
+        android:text="@string/quedingtext" />
+
+</LinearLayout>
+

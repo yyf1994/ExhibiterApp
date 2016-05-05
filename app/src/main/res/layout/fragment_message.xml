@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/message_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_title"
+        />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp">
-        <com.eastfair.exhibiterapp.weight.SupportRecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.eastfair.exhibiterapp.weight.SupportRecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        >
 
+    <com.eastfair.exhibiterapp.weight.SupportRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.eastfair.exhibiterapp.weight.SupportRecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
     <TextView
         android:id="@+id/empty_view"
-        android:drawableTop="@mipmap/empty_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="暂无数据"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:visibility="gone"
         android:layout_centerInParent="true"
-        />
-
-</RelativeLayout>
+        android:drawableTop="@mipmap/empty_icon"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textSize="@dimen/list_text"
+        android:visibility="gone" />
+</LinearLayout>
 

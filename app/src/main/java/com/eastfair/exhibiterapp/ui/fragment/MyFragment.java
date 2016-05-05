@@ -1,16 +1,22 @@
 package com.eastfair.exhibiterapp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseFragment;
+import com.eastfair.exhibiterapp.ui.activity.SendDemandActivity;
+import com.eastfair.exhibiterapp.ui.activity.capture.CaptureActivity;
 import com.eastfair.exhibiterapp.ui.activity.me.MyMessageActivity;
 import com.eastfair.exhibiterapp.ui.activity.me.MyRedPackageActivity;
 
@@ -35,8 +41,17 @@ public class MyFragment extends BaseFragment {
     TextView tv_mymessage;
     @Bind(R.id.tv_myredpackage)
     TextView tv_myredpackage;
-    @Bind(R.id.tv_myout)
-    TextView tv_myout;
+    @Bind(R.id.btn_myout)
+    Button btn_myout;
+
+    @Bind(R.id.myfragment_toolbar)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title;
+    @Bind(R.id.img_title)
+    ImageView img_regist;
+    @Bind(R.id.img_search)
+    ImageView img_search;
 
     public static MyFragment newInstance(String param1) {
         MyFragment fragment = new MyFragment();
@@ -60,10 +75,45 @@ public class MyFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         ButterKnife.bind(this, view);
+        initView(view);
+        setListener();
         Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
+//        String agrs1 = bundle.getString("agrs1");
         return view;
     }
+
+    private void initView(View view) {
+        //初始化toolbar
+        initToolbar((AppCompatActivity) getActivity(),R.id.toolbar_title);
+        text_Title.setText("我的");
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+        img_regist.setImageResource(R.mipmap.faxuqiu);
+        toolbar_title.setNavigationIcon(R.mipmap.saoyisao);
+        img_search.setVisibility(View.GONE);
+
+    }
+
+    private void setListener() {
+
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    /**
+     * 发需求按钮点击事件
+     */
+    @OnClick(R.id.img_title)
+    public void sendDeman() {
+        Intent intent = new Intent(getActivity(), SendDemandActivity.class);
+        startActivity(intent);
+    }
+
 
     @OnClick(R.id.img_myphoto)
     public void myphoto() {
@@ -95,7 +145,7 @@ public class MyFragment extends BaseFragment {
         SkipActivity(MyRedPackageActivity.class);
     }
 
-    @OnClick(R.id.tv_myout)
+    @OnClick(R.id.btn_myout)
     public void myout() {
         Toast.makeText(getActivity(), "tv_myout", Toast.LENGTH_SHORT).show();
     }

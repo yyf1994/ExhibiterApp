@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
-import com.eastfair.exhibiterapp.ui.activity.DetailActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
@@ -31,7 +29,7 @@ public class ExhibitsListActivity extends BaseActivity {
      */
     @Bind(R.id.rv_exhibitslist)
      SupportRecyclerView recyclerView;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.exhibitslist_toolbar)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
     TextView text_Title;
@@ -59,6 +57,7 @@ public class ExhibitsListActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         text_Title.setText("展品列表");
+        toolbar_title.setNavigationIcon(R.mipmap.back);
     }
     private void getData() {
         mData = new ArrayList<>();
@@ -85,7 +84,7 @@ public class ExhibitsListActivity extends BaseActivity {
                 if(item ==null){
                     return;
                 }
-                holder.setText(R.id.tv_zpname,  item.toString());
+                holder.setBoldText(R.id.tv_zpname,  item.toString());
                 holder.setText(R.id.tv_zpproperty, item.toString());
                 holder.setText(R.id.tv_gsname, item.toString());
 //                holder.setImageView(R.id.image,item.toString());

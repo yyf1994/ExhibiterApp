@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -14,11 +15,13 @@ import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.ui.activity.DetailActivity;
-import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +33,7 @@ public class MyRedPackageActivity extends BaseActivity {
 
     @Bind(R.id.rv_redpackage)
     SupportRecyclerView recyclerView;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.myredpackage_toolbar)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
     TextView text_Title;
@@ -50,6 +53,7 @@ public class MyRedPackageActivity extends BaseActivity {
         setContentView(R.layout.activity_myredpackage);
         ButterKnife.bind(this);
         initView();
+
     }
 
     private void initView() {
@@ -58,23 +62,47 @@ public class MyRedPackageActivity extends BaseActivity {
         getData();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyRedPackageActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new RecycleViewDivider(
-                MyRedPackageActivity.this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setHasFixedSize(true);
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+        toolbar_title.setNavigationIcon(R.mipmap.back);
         text_Title.setText("我的红包");
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+
     }
 
     private void getData() {
         mData = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             mData.add("data" + i);
         }
         if (mData == null) {
             recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
+        final List imagelist = new ArrayList();
+        Map<String,Object> image1 = new HashMap<>();
+        image1.put("hongbao1",R.mipmap.hongbao1);
+        image1.put("hongbao2",R.mipmap.hoongbao2);
+        image1.put("hongbao3",R.mipmap.hongbao3);
+        Map<String,Object> image2 = new HashMap<>();
+        image1.put("hongbao1",R.mipmap.hongbao1);
+        image1.put("hongbao2",R.mipmap.hoongbao2);
+        Map<String,Object> image3 = new HashMap<>();
+        image1.put("hongbao1",R.mipmap.hongbao1);
+        for(int i = 0;i<mData.size();i++){
+            imagelist.add(image1);
+            if(i%3==0){
+
+            }else if(i%3==1){
+                imagelist.add(image1);
+            }else if(i%3==2){
+                imagelist.add(image2);
+            }
+
+        }
+
         mAdapter = new MyRecyclerviewAdapter(MyRedPackageActivity.this, mData) {
 
             @Override
@@ -92,17 +120,22 @@ public class MyRedPackageActivity extends BaseActivity {
                 if (item == null) {
                     return;
                 }
-                holder.setText(R.id.tv_qiyeyangpin, item.toString());
-                holder.setText(R.id.tv_time, item.toString());
-                holder.setText(R.id.tv_gsname, item.toString());
+
+                Random generator = new Random();
+                Map<String,Object> map = (Map<String, Object>) imagelist.get(position);
+                map.get("hongbao1");
+//                holder.setBackground(R.id.layout_redpackage, (image.get(position))[generator.nextInt(position)]);
+
+//                holder.setText(R.id.tv_exhibitorname, item.toString());
+//                holder.setText(R.id.tv_exhibitsname, item.toString());
 //                holder.setImageView(R.id.image,item.toString());
                 //按钮的点击事件
-                holder.setClickListener(R.id.btn_lingqu, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MyRedPackageActivity.this, "lingqu", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                holder.setClickListener(R.id.tv_lingqu, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(MyRedPackageActivity.this, "lingqu", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         };
 
@@ -139,5 +172,4 @@ public class MyRedPackageActivity extends BaseActivity {
         super.onDestroy();
         ButterKnife.unbind(this);
     }
-
 }

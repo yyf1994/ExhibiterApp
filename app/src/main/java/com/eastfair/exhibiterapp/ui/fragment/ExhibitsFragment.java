@@ -1,11 +1,16 @@
 package com.eastfair.exhibiterapp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +22,11 @@ import com.eastfair.exhibiterapp.base.BaseFragment;
 import com.eastfair.exhibiterapp.model.ContactModel;
 import com.eastfair.exhibiterapp.pinyin.CharacterParser;
 import com.eastfair.exhibiterapp.pinyin.PinyinComparator;
-import com.eastfair.exhibiterapp.ui.activity.DetailActivity;
 import com.eastfair.exhibiterapp.ui.activity.ExportActivity;
+import com.eastfair.exhibiterapp.ui.activity.SendDemandActivity;
+import com.eastfair.exhibiterapp.ui.activity.capture.CaptureActivity;
 import com.eastfair.exhibiterapp.ui.activity.exhibits.ExhibitsDetailActivity;
+import com.eastfair.exhibiterapp.ui.activity.exhibits.ExhibitsSearchActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.eastfair.exhibiterapp.weight.exhibitors.DividerDecoration;
@@ -50,6 +57,15 @@ public class ExhibitsFragment extends BaseFragment {
     TextView tv_all;
     @Bind(R.id.contact_member)
     SupportRecyclerView mRecyclerView;
+
+    @Bind(R.id.exhibits_toolbar)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title;
+    @Bind(R.id.img_title)
+    ImageView img_regist;
+    @Bind(R.id.img_search)
+    ImageView img_search;
 
     private ContactModel mModel;
     private List<ContactModel.MembersEntity> mMembers = new ArrayList<>();
@@ -104,6 +120,14 @@ public class ExhibitsFragment extends BaseFragment {
                 Toast.makeText(getActivity(), "clickLONG " + pos, Toast.LENGTH_SHORT).show();
             }
         });
+
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 
 
@@ -119,6 +143,15 @@ public class ExhibitsFragment extends BaseFragment {
                 getActivity(), LinearLayoutManager.HORIZONTAL));
         mRecyclerView.setHasFixedSize(true);
 
+        //初始化toolbar
+        initToolbar((AppCompatActivity) getActivity(),R.id.toolbar_title);
+        text_Title.setText("展品");
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+        img_regist.setImageResource(R.mipmap.faxuqiu);
+        toolbar_title.setNavigationIcon(R.mipmap.saoyisao);
+        img_search.setVisibility(View.VISIBLE);
+
         getNetData();
 
     }
@@ -133,6 +166,26 @@ public class ExhibitsFragment extends BaseFragment {
         } catch (Exception e) {
 
         }
+
+    }
+
+    /**
+     * 发需求按钮点击事件
+     */
+    @OnClick(R.id.img_title)
+    public void sendDeman() {
+        Intent intent = new Intent(getActivity(), SendDemandActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 搜索按钮点击事件
+     */
+    @OnClick(R.id.img_search)
+    public void search() {
+        //展品搜索
+        Intent intent = new Intent(getActivity(), ExhibitsSearchActivity.class);
+        startActivity(intent);
 
     }
 
@@ -167,7 +220,7 @@ public class ExhibitsFragment extends BaseFragment {
                     return;
                 }
                 String name = mAllLists.get(position).getUsername();
-                holder.setText(R.id.tv_zpname, name);
+                holder.setBoldText(R.id.tv_zpname, name);
             }
 
             @Override
@@ -217,6 +270,7 @@ public class ExhibitsFragment extends BaseFragment {
             mAdapter.notifyDataSetChanged();
         }*/
     }
+
 
     private void seperateLists(ContactModel mModel) {
         //members;

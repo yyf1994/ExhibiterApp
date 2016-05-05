@@ -1,30 +1,43 @@
 package com.eastfair.exhibiterapp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseFragment;
-import com.eastfair.exhibiterapp.ui.activity.DetailActivity;
+import com.eastfair.exhibiterapp.model.Characters;
+import com.eastfair.exhibiterapp.model.SectionCharacters;
+import com.eastfair.exhibiterapp.net.NetWork;
+import com.eastfair.exhibiterapp.service.ExhibiterService;
+import com.eastfair.exhibiterapp.ui.activity.SendDemandActivity;
+import com.eastfair.exhibiterapp.ui.activity.capture.CaptureActivity;
+import com.eastfair.exhibiterapp.ui.activity.message.MessageDetailActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 消息界面
@@ -32,15 +45,30 @@ import butterknife.ButterKnife;
 public class MessageFragment extends BaseFragment {
 
     @Bind(R.id.swipeRefreshLayout)
-     SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recyclerview)
-     SupportRecyclerView recyclerView;
-    private List<String> mData;
+    SupportRecyclerView recyclerView;
+
+    @Bind(R.id.message_toolbar)
+    Toolbar toolbar_title;
+    @Bind(R.id.text_title)
+    TextView text_Title;
+    @Bind(R.id.img_title)
+    ImageView img_regist;
+    @Bind(R.id.img_search)
+    ImageView img_search;
+
+
+    private List<Characters> mData;
     //    private MessageAdapter mAdapter;
     private MyRecyclerviewAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
 
     private int lastVisibleItem;
+    private int mPageNum;
+    private int mpageSize = 1;
+
+    Call<SectionCharacters> call;
 
     public static MessageFragment newInstance(String param1) {
         MessageFragment fragment = new MessageFragment();
@@ -65,7 +93,7 @@ public class MessageFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
+//        String agrs1 = bundle.getString("agrs1");
 
         initView(view);
 
@@ -78,7 +106,7 @@ public class MessageFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new RecycleViewDivider(
-                getActivity(), LinearLayoutManager.HORIZONTAL));
+                getActivity(), LinearLayoutManager.HORIZONTAL, 1, R.color.list_dicider_color));
         recyclerView.setHasFixedSize(true);
 
         //设置加载时进度条颜色
@@ -89,207 +117,230 @@ public class MessageFragment extends BaseFragment {
         swipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
-        //加载数据
-        getData1(view);
+        //初始化toolbar
+        initToolbar((AppCompatActivity) getActivity(), R.id.message_toolbar, "消息");
+        text_Title.setText("消息");
+        //设置粗体
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
+        img_regist.setImageResource(R.mipmap.faxuqiu);
+        toolbar_title.setNavigationIcon(R.mipmap.saoyisao);
+        img_search.setVisibility(View.GONE);
+
+        //设置adapter
+        setAdapter();
+        //初始化数据
+        initData(view);
         //下拉刷新
-        dropdownrefresh();
+        dropdownrefresh(view);
         //上拉加载
-        upload();
+        upload(view);
+        setListener();
     }
 
     /**
-     * 下拉刷新
+     * 发需求按钮点击事件
      */
-    private void dropdownrefresh() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getActivity(), "刷新", Toast.LENGTH_SHORT).show();
-                new Thread(new Runnable() {//下拉触发的函数，这里是谁1s然后加入一个数据，然后更新界面
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        mData.add(0, "item:refresh...");
-                        handler.sendEmptyMessage(0);
-                    }
-                }).start();
-            }
-        });
+    @OnClick(R.id.img_title)
+    public void sendDeman() {
+        Intent intent = new Intent(getActivity(), SendDemandActivity.class);
+        startActivity(intent);
     }
 
-    /**
-     * 上拉加载
-     */
-    private void upload() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.getItemCount()) {
-
-                    new Thread(new Runnable() {//下拉触发的函数，这里是谁1s然后加入一个数据，然后更新界面
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            for (int i = 0; i < 5; i++) {
-                                int index = i + 1;
-                                mData.add("more item" + index);
-                            }
-                            handler.sendEmptyMessage(0);
-                        }
-                    }).start();
-                }
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-            }
-        });
-
-    }
-
-    /**
-     * 上拉加载
-     */
-    private void upload1() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.getItemCount()) {
-//                    mAdapter.changeMoreStatus(LOADING_MORE);
-                    new Thread(new Runnable() {//下拉触发的函数，这里是谁1s然后加入一个数据，然后更新界面
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            for (int i = 0; i < 5; i++) {
-                                int index = i + 1;
-                                mData.add("more item" + index);
-                            }
-                            handler.sendEmptyMessage(1);
-                        }
-                    }).start();
-                }
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-            }
-        });
-
-    }
-
-    private void getData1(View view) {
-        mData = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            mData.add("data" + i);
-        }
-        if (mData == null) {
-            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
-        }
-        mAdapter = new MyRecyclerviewAdapter(getActivity(), mData) {
-
-            @Override
-            public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
-                bindData(holder, position, mData.get(position));
-            }
-
-            @Override
-            public int getItemLayoutId(int viewType) {
-//                if (viewType == TYPE_ITEM) {
-                    return R.layout.message_item;
-//                } else if (viewType == TYPE_FOOTER) {
-//                    return R.layout.recycler_load_more_layout;
-//                }
-//                return 1;
-//                return viewType;
-            }
-
-       /*     @Override
-            public int getItemViewType(int position) {
-                if (position + 1 == getItemCount()) {
-                    return TYPE_FOOTER;
-                } else {
-                    return TYPE_ITEM;
-                }
-            }*/
-
-            @Override
-            public void bindData(MyRecyclerviewHolder holder, int position, Object item) {
-                if (item == null) {
-                    return;
-                }
-                holder.setText(R.id.tv_gsname, item.toString());
-                holder.setText(R.id.tv_miaoshu, item.toString());
-                holder.setText(R.id.tv_time, item.toString());
-//                holder.setImageView(R.id.image,item.toString());
-                holder.setClickListener(R.id.tv_delete, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getActivity(), "tv_delete", Toast.LENGTH_SHORT).show();
-                    }
-                });
-//                switch (load_more_status) {
-//                    case PULLUP_LOAD_MORE:
-//                        holder.setText(R.id.foot_view_item_tv, "上拉加载更多...");
-//                        break;
-//                    case LOADING_MORE:
-//                        holder.setText(R.id.foot_view_item_tv, "正在加载更多数据...");
-//                        break;
-//                }
-            }
-        };
-        recyclerView.setAdapter(mAdapter);
+    private void setListener() {
 
         mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
-                Toast.makeText(getActivity(), "click " + pos, Toast.LENGTH_SHORT).show();
-                SkipActivity(DetailActivity.class);
+                Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
+                startActivity(intent);
             }
         });
 
         mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View itemView, int pos) {
-                Toast.makeText(getActivity(), "clickLONG " + pos, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    private void setAdapter() {
+
+        mAdapter = new MyRecyclerviewAdapter(getActivity(), mData) {
+
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.message_item;
+            }
+
+            @Override
+            public void bindData(MyRecyclerviewHolder holder, int position, Object item) {
+                if (item == null) {
+                    return;
+                }
+
+                holder.setBoldText(R.id.tv_gsname, ((Characters) item).getName());
+                holder.setText(R.id.tv_miaoshu, ((Characters) item).getAvatar());
+                holder.setText(R.id.tv_time, ((Characters) item).getName());
+                holder.setImageView(R.id.img_logo, ((Characters) item).getAvatar());
+//                holder.setClickListener(R.id.tv_delete, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(getActivity(), "tv_delete", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+            }
+        };
+        recyclerView.setAdapter(mAdapter);
+
+    }
+
+    private void initData(final View view) {
+        call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
+        call.enqueue(new Callback<SectionCharacters>() {
+            @Override
+            public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
+                RpSuccess(response, view);
+            }
+
+            @Override
+            public void onFailure(Call<SectionCharacters> call, Throwable t) {
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void RpSuccess(Response<SectionCharacters> response, View view) {
+        mPageNum = 0;
+        SectionCharacters sectionCharacters = response.body();
+        mData = sectionCharacters.getCharacters();
+        if (mData == null) {
+            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        }
+        mAdapter.refreshdata(mData);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //取消请求
+        call.cancel();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    /**
+     * 下拉刷新
+     */
+    private void dropdownrefresh(final View view) {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "刷新", Toast.LENGTH_SHORT).show();
+                call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
+                call.enqueue(new Callback<SectionCharacters>() {
+                    @Override
+                    public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
+                        RefreshSuccess(response, view);
+                    }
+
+                    @Override
+                    public void onFailure(Call<SectionCharacters> call, Throwable t) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
+    }
+
+    private void RefreshSuccess(Response<SectionCharacters> response, View view) {
+        mPageNum = 0;
+        SectionCharacters sectionCharacters = response.body();
+        mData = sectionCharacters.getCharacters();
+        if (mData == null) {
+            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        }
+        mAdapter.refreshdata(mData);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+
+    }
+
+    /**
+     * 上拉加载
+     */
+    private void upload(final View view) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
+                call.enqueue(new Callback<SectionCharacters>() {
+                    @Override
+                    public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
+                        LoadSuccess(response, view);
+                    }
+
+                    @Override
+                    public void onFailure(Call<SectionCharacters> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
             }
         });
 
     }
 
-    private MyHandler handler = new MyHandler();
+    private void LoadSuccess(Response<SectionCharacters> response, View view) {
 
-    class MyHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    swipeRefreshLayout.setRefreshing(false);
-                    mAdapter.notifyDataSetChanged();
-                    break;
-                case 1:
-                    mAdapter.notifyDataSetChanged();
-                    break;
-                default:
-                    break;
+        if (mPageNum < 3) {
+            mPageNum++;
+            SectionCharacters sectionCharacters = response.body();
+            mData = sectionCharacters.getCharacters();
+            if (mData == null) {
+                recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
             }
+            mAdapter.addAll(mData);
+        } else {
+//            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
         }
     }
 

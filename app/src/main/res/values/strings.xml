@@ -6,8 +6,9 @@
     <string name="logintext">登录</string>
     <string name="nexttext">下一步</string>
     <string name="wangjimima">忘记密码？</string>
-    <string name="usernamehint">请输入手机号码</string>
+    <string name="usernamehint">请输入手机号</string>
     <string name="passwordhint">请输入密码</string>
+    <string name="pichint">请输入图片内容</string>
     <string name="yanzhengmahint">请输入验证码</string>
     <string name="registtext">注册</string>
     <string name="backtext">返回</string>
@@ -23,6 +24,7 @@
     <string name="mymessagetext">我的信息</string>
     <string name="myredpackagetext">我的红包</string>
     <string name="mynametext">姓\u0020 \u0020 名：</string>
+    <string name="myphototext">头\u0020 \u0020 像：</string>
     <string name="mygsnametext">公司名称：</string>
     <string name="myjobtext">职\u0020 \u0020位：</string>
     <string name="myemailtext">邮\u0020 \u0020箱：</string>
@@ -32,7 +34,7 @@
     <string name="mypropertytext">业务性质</string>
     <string name="myareatext">所属地区</string>
     <string name="savetext">保存</string>
-    <string name="myouttext">退出当前帐号</string>
+    <string name="myouttext">退出登录</string>
     <string name="lingqutext">领取</string>
     <string name="zhanweihaotext">\u0020展\u0020位\u0020号：</string>
     <string name="gspropertytext">公司性质：</string>
@@ -45,14 +47,14 @@
     <string name="toast_barcodeScanner_notSupport">抱歉，您的设备不支持此功能！</string>
     <string name="toast_cameraOpenFailed">打开摄像头失败，请确保其他程序没有占用您的摄像头！</string>
     <string name="scancodetishi">请把二维码放置扫描区，快速加关注</string>
-    <string name="scanrecordingtext">扫描记录</string>
+    <string name="scanrecordingtext">历史记录</string>
     <string name="settingtiaojiantext">设置筛选条件</string>
     <string name="daochutext">导出</string>
     <string name="zhanpinnametext">展品名称：</string>
     <string name="zhanpintypetext">展品类型：</string>
     <string name="zhanpindescriptiontext">展品描述：</string>
-    <string name="exporttext">请确认您的邮箱：</string>
-    <string name="oktext">确定</string>
+    <string name="exporttext">请输入您的邮箱：</string>
+    <string name="oktext">确认</string>
     <string name="menu_search">查找</string>
     <string name="choose_zhanpinfenlei">请选择您关注的展品分类</string>
     <string name="choose_purpose">请选择您的参展目的</string>
@@ -64,4 +66,7 @@
     <string name="enteremailtext">请输入邮箱</string>
     <string name="settingpasswordtext">请设置登录密码</string>
     <string name="btn_yanzhengnum_text">立即体验</string>
+    <string name="btn_lingqu_text">领取</string>
+    <string name="miaoshutext">您最想说的话</string>
+    <string name="huanyizhangtext">换一张</string>
 </resources>

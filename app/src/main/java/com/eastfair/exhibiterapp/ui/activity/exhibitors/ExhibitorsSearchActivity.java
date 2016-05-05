@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +57,7 @@ public class ExhibitorsSearchActivity extends BaseActivity{
     private void initView() {
         setSupportActionBar(toolbar_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar_search.setNavigationIcon(R.mipmap.back);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

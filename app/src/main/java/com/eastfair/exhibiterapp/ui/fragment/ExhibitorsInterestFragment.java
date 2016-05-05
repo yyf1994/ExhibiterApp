@@ -167,7 +167,7 @@ public class ExhibitorsInterestFragment extends BaseFragment{
                         return;
                     }
                     String name = mAllLists.get(position).getUsername();
-                    holder.setText(R.id.tv_gsname, name);
+                    holder.setBoldText(R.id.tv_gsname, name);
                 }
 
                 @Override

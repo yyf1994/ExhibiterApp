@@ -1,23 +1,15 @@
 package com.eastfair.exhibiterapp.ui.activity.regist;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-
-import android.view.WindowManager;
 import android.widget.ImageView;
-
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
@@ -36,16 +28,13 @@ import butterknife.OnClick;
 public class RegistActivity extends BaseActivity {
     @Bind(R.id.img_photo)
     ImageView img_photo;
-    @Bind(R.id.text_nocard)
-    TextView text_nocard;
+    @Bind(R.id.img_nocard)
+    ImageView img_nocard;
     @Bind(R.id.toolbar_title)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
     TextView text_Title;
 
-    //    TextView tv_photonew, tv_pic, tv_no;
-//    private PopupWindow p2;
-//    private View popView2;
     private File tuTempFile;
     private File photoFile = new File(
             Environment.getExternalStorageDirectory(),
@@ -56,19 +45,6 @@ public class RegistActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
         ButterKnife.bind(this);
-        /**
-         * 点击头像按钮弹出的窗口
-         */
-    /*    popView2 = getLayoutInflater().inflate(R.layout.photo_pop, null);
-        p2 = new PopupWindow(popView2, WindowManager.LayoutParams.FILL_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
-        p2.setBackgroundDrawable(new BitmapDrawable());
-        p2.setOutsideTouchable(true);
-        p2.setFocusable(true);
-        tv_photonew = (TextView) popView2.findViewById(R.id.tv_photonew);
-        tv_pic = (TextView) popView2.findViewById(R.id.tv_pic);
-        tv_no = (TextView) popView2.findViewById(R.id.tv_no);
-        setTextPOP();*/
         initView();
     }
 
@@ -87,7 +63,7 @@ public class RegistActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.text_nocard)
+    @OnClick(R.id.img_nocard)
     public void nocard() {
         Intent intent = new Intent(RegistActivity.this, VerifyPhoneActivity.class);
         /**
@@ -99,44 +75,16 @@ public class RegistActivity extends BaseActivity {
         finish();
     }
 
-    public void registerEvents() {
-       /* tv_photonew.setOnClickListener(this);
-        tv_pic.setOnClickListener(this);
-        tv_no.setOnClickListener(this);*/
-    }
-
-       /*     case R.id.tv_pic:
-                openTuKu3();
-                p2.dismiss();
-                break;
-            case R.id.tv_photonew:
-                openPhotoHead();
-                p2.dismiss();
-                break;
-            case R.id.tv_no:
-                p2.dismiss();
-                break;*/
 
     private void initView() {
         setSupportActionBar(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         text_Title.setText("注册");
+        toolbar_title.setNavigationIcon(R.mipmap.back);
 
 
     }
-//    public void setTextPOP() {
-//        tv_photonew.setText("拍照");
-//        tv_pic.setText("从相册选取");
-//        tv_no.setText( "取消");
-//    }
-    /**
-     * 弹出pop
-     */
-//    private void displaywindow() {
-//        p2.showAtLocation(img_photo, Gravity.BOTTOM, 0, 0);
-//        p2.setAnimationStyle(R.style.PopupAnimation);
-//    }
 
     /**
      * 相册(pop窗口选择相册，参与裁切)

@@ -2,6 +2,7 @@ package com.eastfair.exhibiterapp.ui.activity.exhibitors;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,8 @@ public class ExhibitorsDetailActivity extends BaseActivity{
     /**
      * 展商详情界面
      */
+    @Bind(R.id.img_qiyephoto)
+    ImageView img_qiyephoto;
     @Bind(R.id.tv_title)
      TextView tv_title;
     @Bind(R.id.tv_gsname)
@@ -48,7 +51,7 @@ public class ExhibitorsDetailActivity extends BaseActivity{
      ImageView img_photo2;
     @Bind(R.id.img_photo3)
      ImageView img_photo3;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.exhibitordetail_toolbar)
      Toolbar toolbar_title;
     @Bind(R.id.text_title)
      TextView text_Title;
@@ -66,7 +69,13 @@ public class ExhibitorsDetailActivity extends BaseActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         text_Title.setText("展商详情");
+        TextPaint tp = text_Title.getPaint();
+        tp.setFakeBoldText(true);
         tv_title.setVisibility(View.GONE);
+        img_qiyephoto.setVisibility(View.VISIBLE);
+        toolbar_title.setNavigationIcon(R.mipmap.back);
+
+
     }
 
     /**

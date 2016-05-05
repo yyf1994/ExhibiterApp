@@ -1,86 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/view">
+    android:background="@mipmap/bg_login"
+    android:orientation="vertical">
 
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/activity_title"
-            android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/edit_phonenum"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/bg_edittextshouji"
+        android:layout_marginTop="250dp"
+        android:paddingLeft="40dp"
+        android:layout_gravity="center"
+        android:hint="@string/usernamehint"
+        android:phoneNumber="true" />
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+        <EditText
+            android:id="@+id/edit_pic"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/bg_edityanzhengma"
+            android:hint="@string/pichint"
+            android:paddingLeft="40dp" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            android:padding="20dp"
-            android:id="@+id/imageView" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:text="@string/phonenum"
-                    android:id="@+id/textView" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit_phonenum"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:hint="@string/usernamehint"
-                    android:layout_toRightOf="@+id/textView"
-                    android:layout_toEndOf="@+id/textView"
-                    android:phoneNumber="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:text="@string/password"
-                    android:id="@+id/textView2" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit_password"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:hint="@string/passwordhint"
-                    android:password="true"
-                    android:layout_toRightOf="@+id/textView2"
-                    android:layout_toEndOf="@+id/textView2" />
-
-        </RelativeLayout>
-
-        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/logintext"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:id="@+id/btn_login" />
+            android:layout_height="30dp"
+            android:id="@+id/img_code"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/edit_pic"
+            android:layout_toEndOf="@+id/edit_pic"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wangjimima"
-            android:padding="20dp"
-            android:layout_gravity="right"
-            android:id="@+id/text_forget" />
+            android:text="@string/huanyizhangtext"
+            android:id="@+id/text_huanyizhang"
+            android:layout_toRightOf="@+id/edit_pic"
+            android:layout_toEndOf="@+id/edit_pic"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:layout_alignBottom="@+id/img_code"/>
+    </RelativeLayout>
+
+
+<FrameLayout
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="20dp">
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/bg_yanzhengma"
+        android:hint="@string/yanzhengmahint"
+        android:layout_gravity="center"
+        android:paddingLeft="40dp" />
+
+    <Button
+        android:id="@+id/btn_getcode"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@mipmap/bg_btncode"
+        android:text="@string/getyanzhengma"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:layout_gravity="right|center_vertical" />
+</FrameLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/bg_button"
+        android:textColor="@color/white"
+        android:text="@string/logintext" />
 
 </LinearLayout>
 

@@ -55,7 +55,7 @@ public class ExhibitsSearchActivity extends BaseActivity {
     private void initView() {
         setSupportActionBar(toolbar_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        toolbar_search.setNavigationIcon(R.mipmap.back);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new RecycleViewDivider(
@@ -97,7 +97,7 @@ public class ExhibitsSearchActivity extends BaseActivity {
                 if (item == null) {
                     return;
                 }
-                holder.setText(R.id.tv_gsname, item.toString());
+                holder.setBoldText(R.id.tv_gsname, item.toString());
                 holder.setText(R.id.tv_zhanweihao, item.toString());
 //                holder.setImageView(R.id.image,item.toString());
             }
@@ -127,7 +127,7 @@ public class ExhibitsSearchActivity extends BaseActivity {
     @OnClick(R.id.img_search)
     public void search() {
         tv_searchresult.setVisibility(View.VISIBLE);
-        tv_searchresult.setText("查询出3条数据");
+        tv_searchresult.setText("根据搜索内容，找到9个结果：");
         getData();
     }
 

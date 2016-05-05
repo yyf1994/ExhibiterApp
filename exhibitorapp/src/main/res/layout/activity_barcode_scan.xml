@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/page_body" >
+
+    <!-- 预览层 -->
+
+    <SurfaceView
+        android:id="@+id/surface_barcodeScanner"
+        style="@style/match_match" />
+
+    <!-- 扫描框层 -->
+
+    <LinearLayout style="@style/match_match_vertical" >
+
+        <View
+            style="@style/match_weight"
+            android:background="@color/black_translucent"
+            android:gravity="center" />
+
+        <LinearLayout
+            style="@style/match_weight"
+            android:layout_weight="2.0" >
+
+            <View
+                style="@style/weight_match"
+                android:background="@color/black_translucent" />
+
+            <me.xiaopan.android.barcode.widget.ScanAreaView
+                android:id="@+id/scanningFrame_barcodeScanner"
+                style="@style/weight_match"
+                android:layout_weight="7"
+                android:background="@drawable/shape_scan_frame" />
+
+            <View
+                style="@style/weight_match"
+                android:background="@color/black_translucent" />
+        </LinearLayout>
+
+        <View
+            style="@style/match_weight"
+            android:background="@color/black_translucent"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- 提示层 -->
+
+    <LinearLayout
+        style="@style/match_wrap_vertical"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding_default" >
+
+        <TextView
+            android:id="@+id/tv_sm"
+            style="@style/wrap_weight"
+            android:text="@string/barcodeScannerhint"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_default" />
+
+        <CheckBox
+            android:id="@+id/checkBox_barcodeScanner_flash"
+            style="@style/wrap_wrap"
+            android:layout_marginTop="@dimen/margin_default"
+            android:drawableLeft="@drawable/selector_button_compound_flashlight" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,11 +1,8 @@
 package com.eastfair.exhibiterapp.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +11,18 @@ import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.adapter.ContactAdapter;
-import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.adapter.expandRecyclerviewadapter.StickyRecyclerHeadersDecoration;
 import com.eastfair.exhibiterapp.base.BaseFragment;
 import com.eastfair.exhibiterapp.model.ContactModel;
 import com.eastfair.exhibiterapp.pinyin.CharacterParser;
 import com.eastfair.exhibiterapp.pinyin.PinyinComparator;
-import com.eastfair.exhibiterapp.ui.activity.DetailActivity;
 import com.eastfair.exhibiterapp.ui.activity.ExportActivity;
 import com.eastfair.exhibiterapp.ui.activity.exhibitors.ExhibitorsDetailActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.eastfair.exhibiterapp.weight.exhibitors.DividerDecoration;
 import com.eastfair.exhibiterapp.weight.exhibitors.SideBar;
-import com.eastfair.exhibiterapp.weight.exhibitors.SwipeItemLayout;
-import com.eastfair.exhibiterapp.weight.exhibitors.TouchableRecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -172,7 +165,7 @@ public class ExhibitorsFollowFragment extends BaseFragment{
                         return;
                     }
                     String name = mAllLists.get(position).getUsername();
-                    holder.setText(R.id.tv_gsname, name);
+                    holder.setBoldText(R.id.tv_gsname, name);
                 }
 
                 @Override

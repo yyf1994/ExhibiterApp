@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.eastfair.exhibiterapp.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/18.
  */
-public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRecyclerviewHolder> {
+public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRecyclerviewHolder>{
 
     private Context context;
     private List<T> mDatas;
@@ -22,14 +20,11 @@ public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRe
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
-
-
     public MyRecyclerviewAdapter(Context ctx,List<T> datas) {
         mDatas = (datas != null) ? datas : new ArrayList<T>();
         context = ctx;
         mInflater = LayoutInflater.from(ctx);
     }
-
 
     @Override
     public MyRecyclerviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -68,12 +63,23 @@ public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRe
         return mDatas.size();
     }
 
-    public void add(int pos, T item) {
+    public void refreshdata(List<T> mdata){
+        mDatas.clear();
+        mDatas.addAll(mdata);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<T> mdata) {
+        mDatas.addAll(mdata);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(int pos, T item) {
         mDatas.add(pos, item);
         notifyItemInserted(pos);
     }
 
-    public void delete(int pos) {
+    public void removeItem(int pos) {
         mDatas.remove(pos);
         notifyItemRemoved(pos);
     }
@@ -105,6 +111,8 @@ public abstract class MyRecyclerviewAdapter<T> extends RecyclerView.Adapter<MyRe
      public void onItemLongClick(View itemView, int pos);
 
 }
+
+
 
 }
 

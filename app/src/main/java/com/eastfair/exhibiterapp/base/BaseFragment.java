@@ -1,9 +1,19 @@
 package com.eastfair.exhibiterapp.base;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.eastfair.exhibiterapp.util.CustomProgressDialog;
 
 /**
@@ -14,7 +24,60 @@ import com.eastfair.exhibiterapp.util.CustomProgressDialog;
  */
 public abstract class BaseFragment extends Fragment {
     private CustomProgressDialog progressDialog = null;
+    Activity mActivity;
+    AppCompatActivity mAppCompatActivity;
 
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mActivity = getActivity();
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mActivity = getActivity();
+        setHasOptionsMenu(true);
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+
+    public Toolbar initToolbar(AppCompatActivity mAppCompatActivity,int toolbarId) {
+        Toolbar toolbar = (Toolbar) mAppCompatActivity.findViewById(toolbarId);
+        mAppCompatActivity.setSupportActionBar(toolbar);
+        ActionBar actionBar = mAppCompatActivity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+        return toolbar;
+    }
+
+    public Toolbar initToolbar(AppCompatActivity mAppCompatActivity,int toolbarId, String title) {
+        Toolbar toolbar = (Toolbar) mAppCompatActivity.findViewById(toolbarId);
+//        toolbar.setTitle(title);
+        mAppCompatActivity.setSupportActionBar(toolbar);
+        ActionBar actionBar = mAppCompatActivity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
+
+        return toolbar;
+    }
+
+//    public Toolbar initToolbar(CharSequence title) {
+//        mAppCompatActivity = (AppCompatActivity) mActivity;
+//        Toolbar toolbar = (Toolbar) mAppCompatActivity.findViewById(toolbarId);
+//        mAppCompatActivity.setSupportActionBar(R.id.toolbar);
+//        ActionBar actionBar = mAppCompatActivity.getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(false);
+//        }
+//        return toolbar;
+//    }
 
     /**
      * 吐出一个短的消息提示
@@ -75,6 +138,8 @@ public abstract class BaseFragment extends Fragment {
 //        getActivity().overridePendingTransition(R.anim.grow_from_top,
 //                R.anim.small_2_big);
     }
+
+
 
 
 }

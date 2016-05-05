@@ -2,12 +2,11 @@ package com.eastfair.exhibiterapp.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,7 @@ public class ExportActivity extends BaseActivity  {
 
     @Bind(R.id.text_title)
     TextView textTitle;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.export_toolbar)
     Toolbar toolbarTitle;
     @Bind(R.id.edit_email)
     EditText editEmail;
@@ -46,7 +45,9 @@ public class ExportActivity extends BaseActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         textTitle.setText("导出");
-
+        TextPaint tp = textTitle.getPaint();
+        tp.setFakeBoldText(true);
+        toolbarTitle.setNavigationIcon(R.mipmap.back);
     }
 
     @OnClick(R.id.btn_ok)
