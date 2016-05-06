@@ -3,7 +3,6 @@ package com.eastfair.exhibitorapp.ui.activity.exhibitors;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,22 +61,25 @@ public class ExhibitorsDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_exhibitordetail);
         ButterKnife.bind(this);
         initView();
+        setListener();
     }
 
     private void initView() {
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("展商详情");
         TextPaint tp = text_Title.getPaint();
         tp.setFakeBoldText(true);
         tv_title.setVisibility(View.GONE);
         img_qiyephoto.setVisibility(View.VISIBLE);
         toolbar_title.setNavigationIcon(R.mipmap.back);
-
-
     }
-
+    private void setListener() {
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
     /**
      * 展商人员按钮点击事件
      */
@@ -102,14 +104,7 @@ public class ExhibitorsDetailActivity extends BaseActivity {
         SkipActivity(ExhibitsListActivity.class);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

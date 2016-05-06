@@ -89,4 +89,5 @@
     <string name="purposetext">参展目的</string>
     <string name="propertytext">业务性质</string>
     <string name="areatext">所属地区</string>
+    <string name="mycodetext">我的二维码,扫一扫加关注</string>
 </resources>

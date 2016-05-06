@@ -27,7 +27,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -67,17 +66,17 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
     @Bind(R.id.capture_preview)
-     SurfaceView scanPreview = null;
+    SurfaceView scanPreview = null;
     @Bind(R.id.capture_container)
-     RelativeLayout scanContainer;
+    RelativeLayout scanContainer;
     @Bind(R.id.capture_crop_view)
-     RelativeLayout scanCropView;
+    RelativeLayout scanCropView;
     @Bind(R.id.capture_scan_line)
-     ImageView scanLine;
+    ImageView scanLine;
     @Bind(R.id.capture_toolbar)
-     Toolbar toolbar_title;
+    Toolbar toolbar_title;
     @Bind(R.id.text_title)
-     TextView text_Title;
+    TextView text_Title;
     @Bind(R.id.scanrecord)
     SupportRecyclerView recyclerView;
 
@@ -92,6 +91,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
     private boolean isHasSurface = false;
     private MyRecyclerviewAdapter mAdapter;
     private List<String> mData;
+
     public Handler getHandler() {
         return handler;
     }
@@ -108,16 +108,14 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_capture);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+
         text_Title.setText("扫一扫");
         TextPaint tp = text_Title.getPaint();
         tp.setFakeBoldText(true);
         tp = tv_title.getPaint();
         tp.setFakeBoldText(true);
         toolbar_title.setNavigationIcon(R.mipmap.back);
-
+        setListener();
         getData();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CaptureActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -135,6 +133,16 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
+    }
+
+    private void setListener() {
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
 
     @Override
@@ -340,13 +348,13 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
 
     private void getData() {
         mData = new ArrayList<>();
-        for(int i = 0;i<100;i++){
-            mData.add("data"+i);
+        for (int i = 0; i < 100; i++) {
+            mData.add("data" + i);
         }
-        if(mData == null){
+        if (mData == null) {
             recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
-        mAdapter = new MyRecyclerviewAdapter(CaptureActivity.this,mData){
+        mAdapter = new MyRecyclerviewAdapter(CaptureActivity.this, mData) {
 
             @Override
             public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
@@ -360,14 +368,13 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
 
             @Override
             public void bindData(MyRecyclerviewHolder holder, int position, Object item) {
-                if(item ==null){
+                if (item == null) {
                     return;
                 }
-                holder.setText(R.id.tv_gsname,  item.toString());
+                holder.setText(R.id.tv_gsname, item.toString());
             }
         };
         recyclerView.setAdapter(mAdapter);
-
         mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
@@ -381,14 +388,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
 
             }
         });
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

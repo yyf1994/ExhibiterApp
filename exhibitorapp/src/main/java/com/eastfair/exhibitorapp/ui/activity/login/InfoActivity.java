@@ -3,7 +3,6 @@ package com.eastfair.exhibitorapp.ui.activity.login;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,17 +68,24 @@ public class InfoActivity extends BaseActivity {
         setContentView(R.layout.activity_info);
         ButterKnife.bind(this);
         initView();
+        setListener();
     }
 
     private void initView() {
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("完善信息");
         TextPaint tp = text_Title.getPaint();
         tp.setFakeBoldText(true);
         img_qiyephoto.setVisibility(View.VISIBLE);
         toolbar_title.setNavigationIcon(R.mipmap.back);
+    }
+
+    private void setListener() {
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     /**
@@ -151,14 +157,6 @@ public class InfoActivity extends BaseActivity {
         SkipActivity(ExhibitsListActivity.class);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onDestroy() {

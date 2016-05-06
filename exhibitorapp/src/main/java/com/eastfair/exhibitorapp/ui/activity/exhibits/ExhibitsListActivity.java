@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +46,7 @@ public class ExhibitsListActivity extends BaseActivity {
         setContentView(R.layout.activity_exhibitslist);
         ButterKnife.bind(this);
         initView();
+        setListener();
     }
 
 
@@ -57,13 +57,32 @@ public class ExhibitsListActivity extends BaseActivity {
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 ExhibitsListActivity.this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setHasFixedSize(true);
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("展品列表");
         img_addexhibit.setImageResource(R.mipmap.faxuqiu);
         toolbar_title.setNavigationIcon(R.mipmap.back);
 
+    }
+    private void setListener() {
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int pos) {
+                Toast.makeText(ExhibitsListActivity.this, "click " + pos, Toast.LENGTH_SHORT).show();
+                SkipActivity(ExhibitsDetailActivity.class);
+            }
+        });
+
+        mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int pos) {
+                Toast.makeText(ExhibitsListActivity.this, "clickLONG " + pos, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     /**
      * 添加展品
@@ -106,29 +125,7 @@ public class ExhibitsListActivity extends BaseActivity {
         };
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int pos) {
-                Toast.makeText(ExhibitsListActivity.this, "click " + pos, Toast.LENGTH_SHORT).show();
-                SkipActivity(ExhibitsDetailActivity.class);
-            }
-        });
 
-        mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
-            @Override
-            public void onItemLongClick(View itemView, int pos) {
-                Toast.makeText(ExhibitsListActivity.this, "clickLONG " + pos, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

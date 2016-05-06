@@ -17,8 +17,6 @@ import com.eastfair.exhibitorapp.R;
 import com.eastfair.exhibitorapp.base.BaseFragment;
 import com.eastfair.exhibitorapp.ui.activity.SendDemandActivity;
 import com.eastfair.exhibitorapp.ui.activity.capture.CaptureActivity;
-import com.eastfair.exhibitorapp.ui.activity.me.MyMessageActivity;
-import com.eastfair.exhibitorapp.ui.activity.me.MyRedPackageActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,20 +27,26 @@ import butterknife.OnClick;
  */
 public class MyFragment extends BaseFragment {
 
-    @Bind(R.id.img_myphoto)
-    ImageView img_myphoto;
-    @Bind(R.id.tv_myname)
-    TextView tv_myname;
-    @Bind(R.id.tv_num)
-    TextView tv_mynum;
+    @Bind(R.id.img_companyphoto)
+    ImageView img_companyphoto;
+    @Bind(R.id.tv_companyname)
+    TextView tv_companyname;
+    @Bind(R.id.tv_zhanweihao)
+    TextView tv_zhanweihao;
     @Bind(R.id.img_mycode)
     ImageView img_mycode;
-    @Bind(R.id.tv_mymessage)
-    TextView tv_mymessage;
-    @Bind(R.id.tv_myredpackage)
-    TextView tv_myredpackage;
-    @Bind(R.id.btn_myout)
-    Button btn_myout;
+    @Bind(R.id.tv_companyproperty)
+    TextView tv_companyproperty;
+    @Bind(R.id.tv_companyarea)
+    TextView tv_companyarea;
+    @Bind(R.id.tv_companyprofile)
+    TextView tv_companyprofile;
+    @Bind(R.id.tv_phonenum)
+    TextView tv_phonenum;
+    @Bind(R.id.tv_exhibits)
+    TextView tv_exhibits;
+    @Bind(R.id.btn_update)
+    Button btn_update;
 
     @Bind(R.id.myfragment_toolbar)
     Toolbar toolbar_title;
@@ -114,40 +118,14 @@ public class MyFragment extends BaseFragment {
         startActivity(intent);
     }
 
-
-    @OnClick(R.id.img_myphoto)
-    public void myphoto() {
-        Toast.makeText(getActivity(), "img_myphoto", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.tv_myname)
-    public void myname() {
-        Toast.makeText(getActivity(), "tv_myname", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.tv_num)
-    public void mynum() {
-        Toast.makeText(getActivity(), "tv_num", Toast.LENGTH_SHORT).show();
-    }
-
     @OnClick(R.id.img_mycode)
     public void mycode() {
         Toast.makeText(getActivity(), "img_mycode", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.tv_mymessage)
-    public void mymessage() {
-        SkipActivity(MyMessageActivity.class);
-    }
-
-    @OnClick(R.id.tv_myredpackage)
-    public void myredpackage() {
-        SkipActivity(MyRedPackageActivity.class);
-    }
-
-    @OnClick(R.id.btn_myout)
-    public void myout() {
-        Toast.makeText(getActivity(), "tv_myout", Toast.LENGTH_SHORT).show();
+    @OnClick(R.id.btn_update)
+    public void myupdate() {
+        Toast.makeText(getActivity(), "tv_myupdate", Toast.LENGTH_SHORT).show();
     }
 
     @Override

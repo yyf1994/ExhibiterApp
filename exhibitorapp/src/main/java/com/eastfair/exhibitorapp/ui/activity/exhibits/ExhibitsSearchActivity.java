@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,11 +49,11 @@ public class ExhibitsSearchActivity extends BaseActivity {
         setContentView(R.layout.activity_exhibitors_search);
         ButterKnife.bind(this);
         initView();
+        setListener();
     }
 
     private void initView() {
-        setSupportActionBar(toolbar_search);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toolbar_search.setNavigationIcon(R.mipmap.back);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -64,7 +63,29 @@ public class ExhibitsSearchActivity extends BaseActivity {
 
         edit_search.setHint("请输入展品关键字");
         tv_searchresult.setVisibility(View.GONE);
+    }
+    private void setListener() {
+        toolbar_search.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+        mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int pos) {
+                Toast.makeText(ExhibitsSearchActivity.this, "click " + pos, Toast.LENGTH_SHORT).show();
+                SkipActivity(DetailActivity.class);
+            }
+        });
+
+        mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int pos) {
+                Toast.makeText(ExhibitsSearchActivity.this, "clickLONG " + pos, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getData() {
@@ -104,20 +125,7 @@ public class ExhibitsSearchActivity extends BaseActivity {
         };
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int pos) {
-                Toast.makeText(ExhibitsSearchActivity.this, "click " + pos, Toast.LENGTH_SHORT).show();
-                SkipActivity(DetailActivity.class);
-            }
-        });
 
-        mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
-            @Override
-            public void onItemLongClick(View itemView, int pos) {
-                Toast.makeText(ExhibitsSearchActivity.this, "clickLONG " + pos, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 
@@ -129,15 +137,6 @@ public class ExhibitsSearchActivity extends BaseActivity {
         tv_searchresult.setVisibility(View.VISIBLE);
         tv_searchresult.setText("根据搜索内容，找到9个结果：");
         getData();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onDestroy() {

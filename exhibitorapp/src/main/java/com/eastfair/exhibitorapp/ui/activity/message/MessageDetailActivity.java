@@ -60,14 +60,12 @@ public class MessageDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_messagedetail);
         ButterKnife.bind(this);
         initView();
+        setListener();
     }
 
 
     private void initView() {
         tag = getIntent().getStringExtra("tag");
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("消息详情");
         TextPaint tp = text_Title.getPaint();
         tp.setFakeBoldText(true);
@@ -80,6 +78,14 @@ public class MessageDetailActivity extends BaseActivity {
             layout_enterprise_detail.setVisibility(View.VISIBLE);
         }
 
+    }
+    private void setListener() {
+        toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     /**

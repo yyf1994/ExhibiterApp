@@ -71,7 +71,7 @@ public class SendDemandActivity extends BaseActivity implements RadioGroup.OnChe
         toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               finish();
+                onBackPressed();
             }
         });
     }
@@ -95,9 +95,6 @@ public class SendDemandActivity extends BaseActivity implements RadioGroup.OnChe
 
 
     private void initView() {
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("发需求");
         TextPaint tp = text_Title.getPaint();
         tp.setFakeBoldText(true);
