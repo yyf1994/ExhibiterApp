@@ -226,17 +226,6 @@ public class RedPackageListActivity extends BaseActivity {
 
     }
 
-  /*  @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-    }*/
-
     @Override
     public void onPause() {
         super.onPause();

@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
     Random mRandom = new Random();
     private String[] mTitles = {"展会", "关注", "成就","我的"};
     private int[] mIconUnselectIds = {
-            R.mipmap.xiaoxi, R.mipmap.zhanshang,
-            R.mipmap.zhanpin, R.mipmap.wode};
+            R.mipmap.zhanhui, R.mipmap.guanzhu,
+            R.mipmap.chengjiu, R.mipmap.wode};
     private int[] mIconSelectIds = {
-            R.mipmap.xiaoxixuanzhong, R.mipmap.zhanshangxuanzhong,
-            R.mipmap.zhanpinxuanzhong, R.mipmap.wodedianji};
+            R.mipmap.zhanhuixuanzhong, R.mipmap.guanzhuxuanzhong,
+            R.mipmap.chengjiuxuanzhong, R.mipmap.wodedianji};
     private Context mContext = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,20 +22,22 @@
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:hint="@string/exhibitsnametext" />
+        android:hint="@string/exhibitsnametext"
+        android:background="@mipmap/bg_addpeople"/>
 
     <EditText
         android:id="@+id/edit_fenlei"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:hint="@string/exhibitsfenleitext" />
+        android:hint="@string/exhibitsfenleitext"
+        android:background="@mipmap/bg_addpeople"/>
 
     <EditText
         android:id="@+id/edit_persent"
@@ -44,7 +46,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:hint="@string/exhibitspersenttext" />
+        android:hint="@string/exhibitspersenttext"
+        android:background="@mipmap/bg_addpeople"/>
 
     <Button
         android:id="@+id/btn_ok"

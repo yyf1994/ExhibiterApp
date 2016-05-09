@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/NoTitle">
@@ -46,6 +46,8 @@
         <activity android:name=".ui.activity.message.RedPackageListActivity"></activity>
         <activity android:name=".ui.activity.DetailActivity"></activity>
         <activity android:name=".ui.activity.exhibitors.ExhibitorsDetailActivity"></activity>
+        <activity android:name=".ui.activity.dialog.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"  ></activity>
     </application>
 
 </manifest>

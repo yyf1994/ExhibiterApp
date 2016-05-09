@@ -96,7 +96,9 @@
             android:layout_toEndOf="@+id/textView8"
             android:layout_toRightOf="@+id/textView8"
             android:hint="@string/jieshaotext"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/bg_edit"/>
 
         <View
             android:id="@+id/view8"

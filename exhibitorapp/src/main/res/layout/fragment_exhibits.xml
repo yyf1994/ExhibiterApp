@@ -36,47 +36,13 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <!--<FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="5dp"
-        >-->
+    <ExpandableListView
+        android:id="@+id/achievement_list"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!--可侧滑删除，但是有bug-->
-        <!--<com.eastfair.exhibiterapp.weight.exhibitors.TouchableRecyclerView
-            android:id="@+id/contact_member"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginRight="15dp" />-->
-
-        <com.eastfair.exhibitorapp.weight.SupportRecyclerView
-            android:id="@+id/contact_member"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center">
-
-        </com.eastfair.exhibitorapp.weight.SupportRecyclerView>
-
-       <!-- <TextView
-            android:id="@+id/contact_dialog"
-            android:layout_width="80.0dip"
-            android:layout_height="80.0dip"
-            android:layout_gravity="center"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:textColor="#ffffffff"
-            android:textSize="30.0dip"
-            android:visibility="invisible" />
-
-        <com.eastfair.exhibitorapp.weight.exhibitors.SideBar
-            android:id="@+id/contact_sidebar"
-            android:layout_width="15dp"
-            android:layout_height="fill_parent"
-            android:layout_gravity="right|center"
-            android:layout_marginRight="3dp" />-->
-
-   <!-- </FrameLayout>-->
+    </ExpandableListView>
 
 
 </LinearLayout>

@@ -21,10 +21,10 @@
 
     <Button
         android:id="@+id/btn_update"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@mipmap/bg_button"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:textColor="@color/updatetext"
+        android:background="@mipmap/bg_update"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:gravity="center"

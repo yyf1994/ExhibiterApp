@@ -31,29 +31,32 @@
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:hint="@string/enternametext" />
+        android:hint="@string/enternametext"
+        android:background="@mipmap/bg_addpeople"/>
 
     <EditText
         android:id="@+id/edit_job"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:hint="@string/enterjobtext" />
+        android:hint="@string/enterjobtext"
+        android:background="@mipmap/bg_addpeople"/>
 
     <EditText
         android:id="@+id/edit_phonenum"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:hint="@string/usernamehint" />
+        android:hint="@string/usernamehint"
+        android:background="@mipmap/bg_addpeople"/>
 
     <Button
         android:id="@+id/btn_ok"
