@@ -10,21 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eastfair.exhibiterapp.R;
-import com.eastfair.exhibiterapp.adapter.ContactAdapter;
+import com.eastfair.exhibiterapp.exhibitors.adapter.ContactAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.adapter.expandRecyclerviewadapter.StickyRecyclerHeadersDecoration;
 import com.eastfair.exhibiterapp.base.BaseFragment;
+import com.eastfair.exhibiterapp.exhibitors.ExhibitorsContract;
+import com.eastfair.exhibiterapp.exhibitors.presenter.ExhibitorsPresenter;
+import com.eastfair.exhibiterapp.exhibitors.view.activity.ExhibitorsDetailActivity;
+import com.eastfair.exhibiterapp.export.view.ExportActivity;
 import com.eastfair.exhibiterapp.model.ContactModel;
 import com.eastfair.exhibiterapp.pinyin.CharacterParser;
 import com.eastfair.exhibiterapp.pinyin.PinyinComparator;
-import com.eastfair.exhibiterapp.export.view.ExportActivity;
-import com.eastfair.exhibiterapp.exhibitors.view.activity.ExhibitorsDetailActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.eastfair.exhibiterapp.weight.exhibitors.DividerDecoration;
 import com.eastfair.exhibiterapp.weight.exhibitors.SideBar;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ import butterknife.OnClick;
 /**
  * 展商感兴趣界面
  */
-public class ExhibitorsInterestFragment extends BaseFragment{
+public class ExhibitorsInterestFragment extends BaseFragment implements ExhibitorsContract.View{
     @Bind(R.id.contact_sidebar)
      SideBar mSideBar;
     @Bind(R.id.contact_dialog)
@@ -48,6 +48,8 @@ public class ExhibitorsInterestFragment extends BaseFragment{
      TextView tv_shaixuan;
     @Bind(R.id.contact_member)
      SupportRecyclerView mRecyclerView;
+
+    private ExhibitorsContract.Present mPresent;
 
     private ContactModel mModel;
     private List<ContactModel.MembersEntity> mMembers = new ArrayList<>();
@@ -84,11 +86,14 @@ public class ExhibitorsInterestFragment extends BaseFragment{
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
+        initParams();
         initView();
         setListener();
         return view;
     }
-
+    private void initParams() {
+        mPresent = new ExhibitorsPresenter(this);
+    }
     private void setListener() {
         mAdapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
@@ -119,109 +124,32 @@ public class ExhibitorsInterestFragment extends BaseFragment{
                 getActivity(), LinearLayoutManager.HORIZONTAL));
         mRecyclerView.setHasFixedSize(true);
 
-        getNetData();
+        mPresent.getData(mModel);
+
+    }
+    @OnClick(R.id.tv_daochu)
+    public void daochu() {
+        SkipActivity(ExportActivity.class);
+    }
+
+    @OnClick(R.id.tv_shaixuan)
+    public void shaixuan() {
+        Toast.makeText(getActivity(), "quanbu", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void setPresenter(ExhibitorsContract.Present presenter) {
 
     }
 
-    public void getNetData() {
-
-        String tempData ="{\"groupName\":\"中国\",\"members\":[{\"id\":\"d1feb5db2\",\"username\":\"彭怡1\"},{\"id\":\"d1feb5db2\",\"username\":\"方谦\"},{\"id\":\"dd2feb5db2\",\"username\":\"谢鸣瑾\"},{\"id\":\"dd2478fb5db2\",\"username\":\"孔秋\"},{\"id\":\"dd24cd1feb5db2\",\"username\":\"曹莺安\"},{\"id\":\"dd2478eb5db2\",\"username\":\"酆有松\"},{\"id\":\"dd2478b5db2\",\"username\":\"姜莺岩\"},{\"id\":\"dd2eb5db2\",\"username\":\"谢之轮\"},{\"id\":\"dd2eb5db2\",\"username\":\"钱固茂\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"潘浩\"},{\"id\":\"dd24ab5db2\",\"username\":\"花裕彪\"},{\"id\":\"dd24ab5db2\",\"username\":\"史厚婉\"},{\"id\":\"dd24a00d1feb5db2\",\"username\":\"陶信勤\"},{\"id\":\"dd24a5db2\",\"username\":\"水天固\"},{\"id\":\"dd24a5db2\",\"username\":\"柳莎婷\"},{\"id\":\"dd2d1feb5db2\",\"username\":\"冯茜\"},{\"id\":\"dd24a0eb5db2\",\"username\":\"吕言栋\"}]}";
-        try {
-            Gson gson = new GsonBuilder().create();
-            mModel = gson.fromJson(tempData, ContactModel.class);
-            setUI();
-        } catch (Exception e) {
-
-        }
-
-    }
-
-    private void setUI() {
-
-        mSideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                if (mAdapter != null) {
-                }
-                int position = mAdapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    mRecyclerView.scrollToPosition(position);
-                }
-
-            }
-        });
-        seperateLists(mModel);
-
-//        if (mAdapter == null) {
-            mAdapter = new ContactAdapter(getActivity(), mAllLists) {
-                @Override
-                public int getItemLayoutId(int viewType) {
-                    return R.layout.item_contact1;
-                }
-
-                @Override
-                public void bindData(MyRecyclerviewHolder holder, final int position, Object item) {
-
-                    if(item ==null){
-                        return;
-                    }
-                    String name = mAllLists.get(position).getUsername();
-                    holder.setBoldText(R.id.tv_gsname, name);
-                }
-
-                @Override
-                public long getHeaderIds(int position) {
-                    return mAllLists.get(position).getSortLetters().charAt(0);
-                }
-
-                @Override
-                public void BindHeaderViewHolder(MyRecyclerviewHolder holder, int position) {
-                    TextView textView = (TextView) holder.itemView;
-                    String showValue = String.valueOf(mAllLists.get(position).getSortLetters().charAt(0));
-                    textView.setText(showValue);
-                }
-
-                @Override
-                public int PositionForSection(char section) {
-                    for (int i = 0; i < getItemCount(); i++) {
-                        String sortStr = mAllLists.get(i).getSortLetters();
-                        char firstChar = sortStr.toUpperCase().charAt(0);
-                        if (firstChar == section) {
-                            return i;
-                        }
-                    }
-                    return -1;
-                }
-
-                @Override
-                public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
-                    bindData(holder, position, mAllLists.get(position));
-                }
-            };
-            mRecyclerView.setAdapter(mAdapter);
-
-
-
-        //添加头部
-            final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
-            mRecyclerView.addItemDecoration(headersDecor);
-            mRecyclerView.addItemDecoration(new DividerDecoration(getActivity()));
-
-            mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onChanged() {
-                    headersDecor.invalidateHeaders();
-                }
-            });
-//        }
-       /* else {
-            mAdapter.notifyDataSetChanged();
-        }*/
-    }
-
-    private void seperateLists(ContactModel mModel) {
-        //members;
+    @Override
+    public void seperateLists(ContactModel mModel) {
         if (mModel.getMembers() != null && mModel.getMembers().size() > 0) {
             for (int i = 0; i < mModel.getMembers().size(); i++) {
                 ContactModel.MembersEntity entity = new ContactModel.MembersEntity();
@@ -240,34 +168,87 @@ public class ExhibitorsInterestFragment extends BaseFragment{
             Collections.sort(mMembers, pinyinComparator);
             mAllLists.addAll(mMembers);
         }
-
-
-    }
-
-
-    public void deleteUser(final int position) {
-//        mAdapter.remove(mAdapter.getItem(position));
-        showToast("删除成功");
-
-    }
-
-    public void showToast(String value) {
-        Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
-
-    }
-    @OnClick(R.id.tv_daochu)
-    public void daochu() {
-        SkipActivity(ExportActivity.class);
-    }
-
-    @OnClick(R.id.tv_shaixuan)
-    public void shaixuan() {
-        Toast.makeText(getActivity(), "quanbu", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public void setUI() {
+        mSideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                if (mAdapter != null) {
+                }
+                int position = mAdapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    mRecyclerView.scrollToPosition(position);
+                }
+
+            }
+        });
+        mAdapter = new ContactAdapter(getActivity(), mAllLists) {
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.item_contact1;
+            }
+
+            @Override
+            public void bindData(MyRecyclerviewHolder holder, final int position, Object item) {
+
+                if(item ==null){
+                    return;
+                }
+                String name = mAllLists.get(position).getUsername();
+                holder.setBoldText(R.id.tv_gsname, name);
+            }
+
+            @Override
+            public long getHeaderIds(int position) {
+                return mAllLists.get(position).getSortLetters().charAt(0);
+            }
+
+            @Override
+            public void BindHeaderViewHolder(MyRecyclerviewHolder holder, int position) {
+                TextView textView = (TextView) holder.itemView;
+                String showValue = String.valueOf(mAllLists.get(position).getSortLetters().charAt(0));
+                textView.setText(showValue);
+            }
+
+            @Override
+            public int PositionForSection(char section) {
+                for (int i = 0; i < getItemCount(); i++) {
+                    String sortStr = mAllLists.get(i).getSortLetters();
+                    char firstChar = sortStr.toUpperCase().charAt(0);
+                    if (firstChar == section) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            @Override
+            public void onBindViewHolder(MyRecyclerviewHolder holder, int position) {
+                bindData(holder, position, mAllLists.get(position));
+            }
+        };
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
+        //添加头部
+        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
+        mRecyclerView.addItemDecoration(headersDecor);
+        mRecyclerView.addItemDecoration(new DividerDecoration(getActivity()));
+
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                headersDecor.invalidateHeaders();
+            }
+        });
+    }
+
+    @Override
+    public void deleteUser(int position) {
+        Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
     }
 }

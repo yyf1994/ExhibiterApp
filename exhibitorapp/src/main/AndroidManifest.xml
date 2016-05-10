@@ -17,37 +17,35 @@
         android:supportsRtl="true"
         android:theme="@style/NoTitle">
 
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".main.MainActivity">
 
         </activity>
-        <activity android:name=".ui.activity.LogoActivity">
+        <activity android:name=".welcome.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.login.LoginActivity">
+        <activity android:name=".login.LoginActivity">
         </activity>
-        <activity android:name=".ui.activity.capture.BarcodeScannerActivity"></activity>
-        <activity android:name=".ui.activity.capture.CaptureActivity"></activity>
-        <activity android:name=".ui.activity.SendDemandActivity"
+        <activity android:name=".capture.BarcodeScannerActivity"></activity>
+        <activity android:name=".capture.CaptureActivity"></activity>
+        <activity android:name=".demand.SendDemandActivity"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <activity android:name=".ui.activity.exhibits.ExhibitsDetailActivity"></activity>
-        <activity android:name=".ui.activity.exhibits.ExhibitsListActivity"></activity>
-        <activity android:name=".ui.activity.ExportActivity"></activity>
-        <activity android:name=".ui.activity.exhibits.ExhibitsSearchActivity"></activity>
-        <activity android:name=".ui.activity.WelcomeActivity"></activity>
-        <activity android:name=".ui.activity.message.MessageDetailActivity"></activity>
-        <activity android:name=".ui.activity.login.InfoActivity"></activity>
-        <activity android:name=".ui.activity.login.AddPeopleActivity"></activity>
-        <activity android:name=".ui.activity.exhibits.AddExhibitsActivity"></activity>
-        <activity android:name=".ui.activity.message.RedPackageListActivity"></activity>
-        <activity android:name=".ui.activity.DetailActivity"></activity>
-        <activity android:name=".ui.activity.exhibitors.ExhibitorsDetailActivity"></activity>
-        <activity android:name=".ui.activity.dialog.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"  ></activity>
+        <activity android:name=".exhibits.ExhibitsDetailActivity"></activity>
+        <activity android:name=".exhibits.ExhibitsListActivity"></activity>
+        <activity android:name=".export.ExportActivity"></activity>
+        <activity android:name=".exhibits.ExhibitsSearchActivity"></activity>
+        <activity android:name=".welcome.WelcomeActivity"></activity>
+        <activity android:name=".show.MessageDetailActivity"></activity>
+        <activity android:name=".login.InfoActivity"></activity>
+        <activity android:name=".login.AddPeopleActivity"></activity>
+        <activity android:name=".exhibits.AddExhibitsActivity"></activity>
+        <activity android:name=".show.RedPackageListActivity"></activity>
+        <activity android:name=".detail.DetailActivity"></activity>
+        <activity android:name=".detail.ExhibitorsDetailActivity"></activity>
     </application>
 
 </manifest>
