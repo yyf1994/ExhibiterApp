@@ -1,4 +1,4 @@
-package com.eastfair.exhibitorapp.achievement;
+package com.eastfair.exhibitorapp.achievement.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eastfair.exhibitorapp.R;
+import com.eastfair.exhibitorapp.achievement.AchievementContract;
+import com.eastfair.exhibitorapp.achievement.presenter.AchievementPresenter;
 import com.eastfair.exhibitorapp.adapter.AchievementAdapter;
 import com.eastfair.exhibitorapp.base.BaseFragment;
-import com.eastfair.exhibitorapp.export.ExportActivity;
-import com.eastfair.exhibitorapp.demand.SendDemandActivity;
 import com.eastfair.exhibitorapp.capture.CaptureActivity;
+import com.eastfair.exhibitorapp.demand.SendDemandActivity;
+import com.eastfair.exhibitorapp.export.ExportActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
 /**
  * 成就界面
  */
-public class AchievementFragment extends BaseFragment {
+public class AchievementFragment extends BaseFragment implements AchievementContract.View{
 
     @Bind(R.id.tv_daochu)
     TextView tv_daochu;
@@ -54,6 +55,8 @@ public class AchievementFragment extends BaseFragment {
      * 子数据源
      */
     private List<List<String>> childs;
+
+    private AchievementContract.Present mPresent;
 
     public static AchievementFragment newInstance(String param1) {
         AchievementFragment fragment = new AchievementFragment();
@@ -81,27 +84,17 @@ public class AchievementFragment extends BaseFragment {
        /* String agrs1 = bundle.getString("agrs1");
         TextView tv = (TextView)view.findViewById(R.id.tv_location);
         tv.setText(agrs1);*/
-        getData();
+        initParams();
+        parents = mPresent.getParents();
+        childs = mPresent.getChilds();
         initView(view);
         setListener();
         return view;
     }
 
-    private void getData() {
-        parents = new ArrayList<>();
-        parents.add("我关注的");
-        parents.add("关注我的");
-        parents.add("打过电话的");
 
-        childs = new ArrayList<>();
-        for (int i = 0; i < parents.size(); i++) {
-            List<String> c = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-                c.add("child:" + j + "");
-            }
-            childs.add(c);
-        }
-
+    private void initParams() {
+        mPresent = new AchievementPresenter(this);
     }
 
     private void setListener() {
@@ -175,16 +168,6 @@ public class AchievementFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    public void deleteUser(final int position) {
-//        mAdapter.remove(mAdapter.getItem(position));
-        showToast("删除成功");
-
-    }
-
-    public void showToast(String value) {
-        Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
-
-    }
 
     @OnClick(R.id.tv_daochu)
     public void daochu() {
@@ -202,4 +185,8 @@ public class AchievementFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void setPresenter(AchievementContract.Present presenter) {
+
+    }
 }

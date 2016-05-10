@@ -1,4 +1,4 @@
-package com.eastfair.exhibitorapp.login;
+package com.eastfair.exhibitorapp.login.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

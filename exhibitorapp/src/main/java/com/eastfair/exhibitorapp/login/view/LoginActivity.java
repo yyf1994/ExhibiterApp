@@ -1,4 +1,4 @@
-package com.eastfair.exhibitorapp.login;
+package com.eastfair.exhibitorapp.login.view;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,9 +7,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eastfair.exhibitorapp.R;
 import com.eastfair.exhibitorapp.base.BaseActivity;
+import com.eastfair.exhibitorapp.login.LoginContract;
+import com.eastfair.exhibitorapp.login.persenter.LoginPresenter;
 import com.eastfair.exhibitorapp.main.MainActivity;
 import com.eastfair.exhibitorapp.welcome.WelcomeActivity;
 import com.eastfair.exhibitorapp.util.SharePreferenceUtil;
@@ -21,7 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View{
 
 
     /**
@@ -39,6 +42,7 @@ public class LoginActivity extends BaseActivity {
     private boolean isFirst;
     private List<String> data_list;
     private ArrayAdapter<String> arr_adapter;
+    private LoginContract.Present mPresent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +50,14 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initView();
-
+        initParams();
     }
-
+    private void initParams() {
+        mPresent = new LoginPresenter(this);
+    }
     @OnClick(R.id.btn_login)
     public void login() {
-        Boolean loginTag =  getUserEdtext();
-        if(loginTag){
-            LoginSuccess();
-        }
-
+        mPresent.login();
     }
 
     @OnClick(R.id.tv_call)
@@ -63,13 +65,6 @@ public class LoginActivity extends BaseActivity {
         CallPhoneNum("tel:10086");
     }
 
-    /**
-     * 判断身份验证码
-     */
-    public boolean getUserEdtext() {
-
-        return true;
-    }
 
     private void initView() {
         //数据
@@ -85,11 +80,19 @@ public class LoginActivity extends BaseActivity {
         actv_zhanshang.setAdapter(arr_adapter);
     }
 
-    /**
-     * 判断用户是否输入账号，密码
-     */
-    public void LoginSuccess() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 
+    @Override
+    public void loginError(String msg) {
+        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginSuccess() {
         /**
          * 登陆请求
          */
@@ -106,12 +109,20 @@ public class LoginActivity extends BaseActivity {
 //            SkipActivity(InfoActivity.class);
             this.finish();
         }
-
     }
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
+    public String getExhibitor() {
+        return actv_zhanshang.getText().toString();
     }
 
+    @Override
+    public String getCode() {
+        return edit_code.getText().toString();
+    }
+
+    @Override
+    public void setPresenter(LoginContract.Present presenter) {
+
+    }
 }

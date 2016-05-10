@@ -18,16 +18,16 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".main.MainActivity">
-
-        </activity>
-        <activity android:name=".welcome.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".welcome.LogoActivity">
+
+        </activity>
+        <activity android:name=".login.view.LoginActivity">
         </activity>
         <activity android:name=".capture.BarcodeScannerActivity"></activity>
         <activity android:name=".capture.CaptureActivity"></activity>
@@ -39,11 +39,11 @@
         <activity android:name=".export.ExportActivity"></activity>
         <activity android:name=".exhibits.ExhibitsSearchActivity"></activity>
         <activity android:name=".welcome.WelcomeActivity"></activity>
-        <activity android:name=".show.MessageDetailActivity"></activity>
-        <activity android:name=".login.InfoActivity"></activity>
-        <activity android:name=".login.AddPeopleActivity"></activity>
+        <activity android:name=".show.view.activity.MessageDetailActivity"></activity>
+        <activity android:name=".login.view.InfoActivity"></activity>
+        <activity android:name=".login.view.AddPeopleActivity"></activity>
         <activity android:name=".exhibits.AddExhibitsActivity"></activity>
-        <activity android:name=".show.RedPackageListActivity"></activity>
+        <activity android:name=".show.view.activity.RedPackageListActivity"></activity>
         <activity android:name=".detail.DetailActivity"></activity>
         <activity android:name=".detail.ExhibitorsDetailActivity"></activity>
     </application>

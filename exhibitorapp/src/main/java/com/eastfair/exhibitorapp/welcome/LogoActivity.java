@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import com.eastfair.exhibitorapp.R;
 import com.eastfair.exhibitorapp.base.BaseActivity;
-import com.eastfair.exhibitorapp.login.LoginActivity;
+import com.eastfair.exhibitorapp.login.view.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,7 +38,6 @@ public class LogoActivity extends BaseActivity {
         view.setAnimation(AnimationUtils.loadAnimation(LogoActivity.this,
                 R.anim.two_in));
         initHandle();
-//        SharePreferenceUtil.setParam(this, "isFirst", true);
     }
 
     /**

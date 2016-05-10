@@ -1,4 +1,4 @@
-package com.eastfair.exhibitorapp.show;
+package com.eastfair.exhibitorapp.show.view.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -22,12 +22,13 @@ import com.eastfair.exhibitorapp.R;
 import com.eastfair.exhibitorapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibitorapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibitorapp.base.BaseFragment;
+import com.eastfair.exhibitorapp.capture.CaptureActivity;
+import com.eastfair.exhibitorapp.demand.SendDemandActivity;
 import com.eastfair.exhibitorapp.model.Characters;
 import com.eastfair.exhibitorapp.model.SectionCharacters;
-import com.eastfair.exhibitorapp.net.NetWork;
-import com.eastfair.exhibitorapp.service.ExhibiterService;
-import com.eastfair.exhibitorapp.demand.SendDemandActivity;
-import com.eastfair.exhibitorapp.capture.CaptureActivity;
+import com.eastfair.exhibitorapp.show.Presenter.ShowPresenter;
+import com.eastfair.exhibitorapp.show.ShowContract;
+import com.eastfair.exhibitorapp.show.view.activity.RedPackageListActivity;
 import com.eastfair.exhibitorapp.weight.RecycleViewDivider;
 import com.eastfair.exhibitorapp.weight.SupportRecyclerView;
 
@@ -37,13 +38,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * 展会界面
  */
-public class ShowFragment extends BaseFragment {
+public class ShowFragment extends BaseFragment implements ShowContract.View {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -69,7 +69,7 @@ public class ShowFragment extends BaseFragment {
     private int mPageNum;
     private int mpageSize = 1;
 
-    Call<SectionCharacters> call;
+    private ShowContract.Present mPresent;
 
     public static ShowFragment newInstance(String param1) {
         ShowFragment fragment = new ShowFragment();
@@ -97,8 +97,21 @@ public class ShowFragment extends BaseFragment {
 //        String agrs1 = bundle.getString("agrs1");
 
         initView(view);
-
+        initParams();
+        //设置adapter
+        setAdapter();
+        //初始化数据
+        initData(view);
+        //下拉刷新
+        dropdownrefresh(view);
+        //上拉加载
+        upload(view);
+        setListener();
         return view;
+    }
+
+    private void initParams() {
+        mPresent = new ShowPresenter(this);
     }
 
     private void initView(View view) {
@@ -127,16 +140,12 @@ public class ShowFragment extends BaseFragment {
         img_regist.setImageResource(R.mipmap.faxuqiu);
         toolbar_title.setNavigationIcon(R.mipmap.saoyisao);
         img_search.setVisibility(View.GONE);
+    }
 
-        //设置adapter
-        setAdapter();
-        //初始化数据
-        initData(view);
-        //下拉刷新
-        dropdownrefresh(view);
-        //上拉加载
-        upload(view);
-        setListener();
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresent.start();
     }
 
     /**
@@ -164,18 +173,23 @@ public class ShowFragment extends BaseFragment {
         mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View itemView, int pos) {
-//                SkipActivity(DialogActivity.class);
                 //此处直接new一个Dialog对象出来，在实例化的时候传入主题
-//                Dialog dialog = new Dialog(getActivity(), R.style.MyDialog);
-                final Dialog dialog = new Dialog(getActivity(),R.style.MyDialog);
+                final Dialog dialog = new Dialog(getActivity(), R.style.MyDialog);
                 //设置它的ContentView
                 dialog.setContentView(R.layout.dialog);
                 dialog.show();
                 Button btn_ok = (Button) dialog.findViewById(R.id.dialog_button_ok);
+                Button btn_cancel = (Button) dialog.findViewById(R.id.dialog_button_cancel);
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),"ok",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
@@ -234,35 +248,7 @@ public class ShowFragment extends BaseFragment {
     }
 
     private void initData(final View view) {
-        call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
-        call.enqueue(new Callback<SectionCharacters>() {
-            @Override
-            public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
-                RpSuccess(response, view);
-            }
-
-            @Override
-            public void onFailure(Call<SectionCharacters> call, Throwable t) {
-                if (swipeRefreshLayout != null) {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-                t.printStackTrace();
-            }
-        });
-    }
-
-    private void RpSuccess(Response<SectionCharacters> response, View view) {
-        mPageNum = 0;
-        SectionCharacters sectionCharacters = response.body();
-        mData = sectionCharacters.getCharacters();
-        if (mData == null) {
-            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
-        }
-        mAdapter.refreshdata(mData);
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
+       mPresent.getData(view);
     }
 
     @Override
@@ -280,7 +266,7 @@ public class ShowFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         //取消请求
-        call.cancel();
+        mPresent.cancelRequest();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -294,24 +280,14 @@ public class ShowFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 Toast.makeText(getActivity(), "刷新", Toast.LENGTH_SHORT).show();
-                call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
-                call.enqueue(new Callback<SectionCharacters>() {
-                    @Override
-                    public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
-                        RefreshSuccess(response, view);
-                    }
-
-                    @Override
-                    public void onFailure(Call<SectionCharacters> call, Throwable t) {
-                        swipeRefreshLayout.setRefreshing(false);
-                        t.printStackTrace();
-                    }
-                });
+             mPresent.pulldowntorefresh(view);
             }
         });
     }
 
-    private void RefreshSuccess(Response<SectionCharacters> response, View view) {
+    @Override
+    public void responseSuccess(Response<SectionCharacters> response, View view) {
+
         mPageNum = 0;
         SectionCharacters sectionCharacters = response.body();
         mData = sectionCharacters.getCharacters();
@@ -323,43 +299,34 @@ public class ShowFragment extends BaseFragment {
             swipeRefreshLayout.setRefreshing(false);
         }
 
+    }
+
+    @Override
+    public void responseFailed(Call<SectionCharacters> call, Throwable t) {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        t.printStackTrace();
 
     }
 
-    /**
-     * 上拉加载
-     */
-    private void upload(final View view) {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                call = NetWork.getRetrofit().create(ExhibiterService.class).loadSectionCharacters();
-                call.enqueue(new Callback<SectionCharacters>() {
-                    @Override
-                    public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
-                        LoadSuccess(response, view);
-                    }
-
-                    @Override
-                    public void onFailure(Call<SectionCharacters> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-            }
-        });
+    @Override
+    public void RefreshSuccess(Response<SectionCharacters> response, View view) {
+        mPageNum = 0;
+        SectionCharacters sectionCharacters = response.body();
+        mData = sectionCharacters.getCharacters();
+        if (mData == null) {
+            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        }
+        mAdapter.refreshdata(mData);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
     }
 
-    private void LoadSuccess(Response<SectionCharacters> response, View view) {
-
+    @Override
+    public void LoadSuccess(Response<SectionCharacters> response, View view) {
         if (mPageNum < 3) {
             mPageNum++;
             SectionCharacters sectionCharacters = response.body();
@@ -373,9 +340,35 @@ public class ShowFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 上拉加载
+     */
+    private void upload(final View view) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                mPresent.upload(view);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void setPresenter(ShowContract.Present presenter) {
+
     }
 }

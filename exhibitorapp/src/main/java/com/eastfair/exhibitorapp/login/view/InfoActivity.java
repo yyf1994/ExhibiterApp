@@ -1,4 +1,4 @@
-package com.eastfair.exhibitorapp.login;
+package com.eastfair.exhibitorapp.login.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.eastfair.exhibitorapp.R;
 import com.eastfair.exhibitorapp.base.BaseActivity;
+import com.eastfair.exhibitorapp.login.view.AddPeopleActivity;
 import com.eastfair.exhibitorapp.main.MainActivity;
 import com.eastfair.exhibitorapp.exhibits.ExhibitsListActivity;
 
