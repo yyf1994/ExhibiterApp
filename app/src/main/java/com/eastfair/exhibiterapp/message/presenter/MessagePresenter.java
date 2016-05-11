@@ -46,12 +46,12 @@ public class MessagePresenter implements MessageContract.Present {
     }
 
     @Override
-    public void pulldowntorefresh(final View view) {
+    public void pulldowntorefresh() {
          call = MessageHttp.getInstance().pulldowntorefresh();
         call.enqueue(new Callback<SectionCharacters>() {
             @Override
             public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
-                mView.RefreshSuccess(response,view);
+                mView.RefreshSuccess(response);
             }
 
             @Override
@@ -62,12 +62,12 @@ public class MessagePresenter implements MessageContract.Present {
     }
 
     @Override
-    public void upload(final View view) {
+    public void upload() {
          call = MessageHttp.getInstance().upload();
         call.enqueue(new Callback<SectionCharacters>() {
             @Override
             public void onResponse(Call<SectionCharacters> call, Response<SectionCharacters> response) {
-                mView.LoadSuccess(response,view);
+                mView.LoadSuccess(response);
             }
 
             @Override

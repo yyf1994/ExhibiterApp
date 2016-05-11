@@ -22,7 +22,6 @@ import com.eastfair.exhibiterapp.model.ContactModel;
 import com.eastfair.exhibiterapp.pinyin.CharacterParser;
 import com.eastfair.exhibiterapp.pinyin.PinyinComparator;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.eastfair.exhibiterapp.weight.exhibitors.DividerDecoration;
 import com.eastfair.exhibiterapp.weight.exhibitors.SideBar;
 
@@ -47,7 +46,7 @@ public class ExhibitorsInterestFragment extends BaseFragment implements Exhibito
     @Bind(R.id.tv_shaixuan)
      TextView tv_shaixuan;
     @Bind(R.id.contact_member)
-     SupportRecyclerView mRecyclerView;
+     RecyclerView mRecyclerView;
 
     private ExhibitorsContract.Present mPresent;
 

@@ -14,7 +14,6 @@ import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ExhibitsListActivity extends BaseActivity {
      * 展品列表
      */
     @Bind(R.id.rv_exhibitslist)
-     SupportRecyclerView recyclerView;
+     RecyclerView recyclerView;
     @Bind(R.id.exhibitslist_toolbar)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
@@ -63,9 +62,6 @@ public class ExhibitsListActivity extends BaseActivity {
         mData = new ArrayList<>();
         for(int i = 0;i<100;i++){
             mData.add("data"+i);
-        }
-        if(mData == null){
-            recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
         mAdapter = new MyRecyclerviewAdapter(ExhibitsListActivity.this,mData){
 

@@ -19,7 +19,6 @@ import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class SendDemandActivity extends BaseActivity implements RadioGroup.OnChe
     @Bind(R.id.img_photo)
     ImageView img_photo;
     @Bind(R.id.scanrecord)
-    SupportRecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     @Bind(R.id.tv_title)
     TextView tv_title;
@@ -117,9 +116,6 @@ public class SendDemandActivity extends BaseActivity implements RadioGroup.OnChe
         mData = new ArrayList<>();
         for(int i = 0;i<100;i++){
             mData.add("data"+i);
-        }
-        if(mData == null){
-            recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
         mAdapter = new MyRecyclerviewAdapter(SendDemandActivity.this,mData){
 

@@ -43,14 +43,14 @@
             android:layout_gravity="center"
             android:layout_marginRight="15dp" />-->
 
-        <com.eastfair.exhibiterapp.weight.SupportRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/contact_member"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_marginRight="15dp">
 
-        </com.eastfair.exhibiterapp.weight.SupportRecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:id="@+id/contact_dialog"

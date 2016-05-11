@@ -14,11 +14,11 @@ import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.login.LoginContract;
 import com.eastfair.exhibiterapp.login.presenter.LoginPresenter;
-import com.eastfair.exhibiterapp.main.view.MainActivity;
-import com.eastfair.exhibiterapp.welcome.view.WelcomeActivity;
+import com.eastfair.exhibiterapp.regist.RegistActivity;
 import com.eastfair.exhibiterapp.util.CodeUtil;
 import com.eastfair.exhibiterapp.util.RegexChk;
 import com.eastfair.exhibiterapp.util.SharePreferenceUtil;
+import com.eastfair.exhibiterapp.welcome.view.WelcomeActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -112,7 +112,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             SharePreferenceUtil.setParam(this, "isFirst", false);
             this.finish();
         } else {
-            SkipActivity(MainActivity.class);
+//            SkipActivity(MainActivity.class);
+            SkipActivity(RegistActivity.class);
             this.finish();
         }
     }

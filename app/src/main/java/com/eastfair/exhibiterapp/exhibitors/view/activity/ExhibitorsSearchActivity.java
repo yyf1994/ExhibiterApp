@@ -17,7 +17,6 @@ import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.detail.view.DetailActivity;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class ExhibitorsSearchActivity extends BaseActivity{
     @Bind(R.id.tv_searchresult)
      TextView tv_searchresult;
     @Bind(R.id.rv_searchresult)
-     SupportRecyclerView recyclerView;
+     RecyclerView recyclerView;
 
     private MyRecyclerviewAdapter mAdapter;
     private List<String> mData;
@@ -80,9 +79,6 @@ public class ExhibitorsSearchActivity extends BaseActivity{
     }
 
     private void setUI() {
-        if(mData == null){
-            recyclerView.setEmptyView(findViewById(R.id.empty_view));
-        }
         mAdapter = new MyRecyclerviewAdapter(this,mData){
 
             @Override

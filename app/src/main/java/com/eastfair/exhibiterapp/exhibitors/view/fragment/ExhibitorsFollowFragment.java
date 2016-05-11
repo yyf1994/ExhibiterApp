@@ -22,7 +22,6 @@ import com.eastfair.exhibiterapp.model.ContactModel;
 import com.eastfair.exhibiterapp.pinyin.CharacterParser;
 import com.eastfair.exhibiterapp.pinyin.PinyinComparator;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.eastfair.exhibiterapp.weight.exhibitors.DividerDecoration;
 import com.eastfair.exhibiterapp.weight.exhibitors.SideBar;
 
@@ -46,7 +45,7 @@ public class ExhibitorsFollowFragment extends BaseFragment implements Exhibitors
     @Bind(R.id.tv_daochu)
     TextView tv_daochu;
     @Bind(R.id.contact_member)
-    SupportRecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
 
     private ExhibitorsContract.Present mPresent;
 

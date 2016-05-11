@@ -30,7 +30,7 @@ public class RegistActivity extends BaseActivity {
     ImageView img_photo;
     @Bind(R.id.img_nocard)
     ImageView img_nocard;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.regist_toolbar)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
     TextView text_Title;
@@ -77,12 +77,8 @@ public class RegistActivity extends BaseActivity {
 
 
     private void initView() {
-        setSupportActionBar(toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
         text_Title.setText("注册");
         toolbar_title.setNavigationIcon(R.mipmap.back);
-
 
     }
 

@@ -43,7 +43,6 @@ import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 import com.google.zxing.Result;
 
 import java.io.IOException;
@@ -79,7 +78,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
     @Bind(R.id.text_title)
      TextView text_Title;
     @Bind(R.id.scanrecord)
-     SupportRecyclerView recyclerView;
+     RecyclerView recyclerView;
 
     @Bind(R.id.tv_title)
     TextView tv_title;
@@ -342,9 +341,6 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         mData = new ArrayList<>();
         for(int i = 0;i<100;i++){
             mData.add("data"+i);
-        }
-        if(mData == null){
-            recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
         mAdapter = new MyRecyclerviewAdapter(CaptureActivity.this,mData){
 

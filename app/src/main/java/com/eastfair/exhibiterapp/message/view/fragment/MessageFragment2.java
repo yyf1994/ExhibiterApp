@@ -1,3 +1,4 @@
+/*
 package com.eastfair.exhibiterapp.message.view.fragment;
 
 import android.content.Intent;
@@ -18,16 +19,18 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.eastfair.exhibiterapp.R;
+import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
+import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseFragment;
 import com.eastfair.exhibiterapp.capture.CaptureActivity;
 import com.eastfair.exhibiterapp.demand.view.SendDemandActivity;
 import com.eastfair.exhibiterapp.message.MessageContract;
-import com.eastfair.exhibiterapp.message.adapter.MessageAdapter;
 import com.eastfair.exhibiterapp.message.presenter.MessagePresenter;
 import com.eastfair.exhibiterapp.message.view.activity.MessageDetailActivity;
 import com.eastfair.exhibiterapp.model.Characters;
 import com.eastfair.exhibiterapp.model.SectionCharacters;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
+import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.List;
 
@@ -37,15 +40,17 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
+*/
 /**
  * 消息界面
- */
-public class MessageFragment extends BaseFragment implements MessageContract.View,BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
+ *//*
+
+public class MessageFragment2 extends BaseFragment implements MessageContract.View,BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recyclerview)
-    RecyclerView recyclerView;
+    SupportRecyclerView recyclerView;
 
     @Bind(R.id.message_toolbar)
     Toolbar toolbar_title;
@@ -58,29 +63,25 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
 
     private List<Characters> mData;
-        private MessageAdapter mAdapter;
-//    private MyRecyclerviewAdapter mAdapter;
-
+    //    private MessageAdapter mAdapter;
+    private MyRecyclerviewAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
 
-
-    private static final int TOTAL_COUNTER = 18;
-
-    private static final int PAGE_SIZE = 5;
-
-    private int mCurrentCounter = 0;
+    private int lastVisibleItem;
+    private int mPageNum;
+    private int mpageSize = 1;
 
     private MessageContract.Present mPresent;
 
-    public static MessageFragment newInstance(String param1) {
-        MessageFragment fragment = new MessageFragment();
+    public static MessageFragment2 newInstance(String param1) {
+        MessageFragment2 fragment = new MessageFragment2();
         Bundle args = new Bundle();
         args.putString("agrs1", param1);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public MessageFragment() {
+    public MessageFragment2() {
 
     }
 
@@ -104,12 +105,17 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 //        String agrs1 = bundle.getString("agrs1");
 
         initView(view);
-
+        //设置adapter
+        setAdapter();
         initParams();
         //初始化数据
         mPresent.getData(view);
-//        initAdapter();
+        //下拉刷新
+        dropdownrefresh(view);
+        //上拉加载
+        upload(view);
         setListener();
+
         return view;
     }
 
@@ -144,33 +150,11 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
     private void initParams() {
         mPresent = new MessagePresenter(this);
     }
-
-    private void initAdapter() {
-        mAdapter = new MessageAdapter(getActivity(), mData);
-        mAdapter.openLoadAnimation();
-        recyclerView.setAdapter(mAdapter);
-        mCurrentCounter = mAdapter.getItemCount();
-        mAdapter.setOnLoadMoreListener(this);
-        mAdapter.openLoadMore(PAGE_SIZE,true);//or call mQuickAdapter.setPageSize(PAGE_SIZE);  mQuickAdapter.openLoadMore(true);
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
-                startActivity(intent);
-                Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_LONG).show();
-            }
-        });
-        mAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(View view, int i) {
-                Toast.makeText(getActivity(),"long",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-    }
-    /**
+    */
+/**
      * 发需求按钮点击事件
-     */
+     *//*
+
     @OnClick(R.id.img_title)
     public void sendDeman() {
         Intent intent = new Intent(getActivity(), SendDemandActivity.class);
@@ -179,7 +163,21 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
     private void setListener() {
 
-        swipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnItemClickListener(new MyRecyclerviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int pos) {
+                Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mAdapter.setOnItemLongClickListener(new MyRecyclerviewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int pos) {
+
+            }
+        });
+
         toolbar_title.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,11 +187,46 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         });
     }
 
+    private void setAdapter() {
+
+        mAdapter = new MyRecyclerviewAdapter(getActivity(), mData) {
+
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.message_item;
+            }
+
+            @Override
+            public void bindData(MyRecyclerviewHolder holder, int position, Object item) {
+                if (item == null) {
+                    return;
+                }
+
+                holder.setBoldText(R.id.tv_gsname, ((Characters) item).getName());
+                holder.setText(R.id.tv_miaoshu, ((Characters) item).getAvatar());
+                holder.setText(R.id.tv_time, ((Characters) item).getName());
+                holder.setImageView(R.id.img_logo, ((Characters) item).getAvatar());
+//                holder.setClickListener(R.id.tv_delete, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(getActivity(), "tv_delete", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+            }
+        };
+        recyclerView.setAdapter(mAdapter);
+
+    }
+
     @Override
     public void responseSuccess(Response<SectionCharacters> response, View view) {
+        mPageNum = 0;
         SectionCharacters sectionCharacters = response.body();
         mData = sectionCharacters.getCharacters();
-        initAdapter();
+        if (mData == null) {
+            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        }
+        mAdapter.refreshdata(mData);
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -209,32 +242,33 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
     }
 
     @Override
-    public void RefreshSuccess(Response<SectionCharacters> response) {
+    public void RefreshSuccess(Response<SectionCharacters> response, View view) {
+
+        mPageNum = 0;
         SectionCharacters sectionCharacters = response.body();
         mData = sectionCharacters.getCharacters();
-        mAdapter.setNewData(mData);
-        mCurrentCounter = PAGE_SIZE;
+        if (mData == null) {
+            recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        }
+        mAdapter.refreshdata(mData);
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
+
     }
 
     @Override
-    public void LoadSuccess(Response<SectionCharacters> response) {
-        if (mCurrentCounter >= TOTAL_COUNTER) {
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.notifyDataChangedAfterLoadMore(false);
-                }
-            });
-
-        } else {
+    public void LoadSuccess(Response<SectionCharacters> response, View view) {
+        if (mPageNum < 3) {
+            mPageNum++;
             SectionCharacters sectionCharacters = response.body();
             mData = sectionCharacters.getCharacters();
-            mAdapter.addData(mData);
-            mAdapter.notifyDataChangedAfterLoadMore(mData,true);
-            mCurrentCounter = mAdapter.getItemCount();
+            if (mData == null) {
+                recyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+            }
+            mAdapter.addAll(mData);
+        } else {
+//            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -254,9 +288,47 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         super.onPause();
         //取消请求
         mPresent.cancelRequest();
+//        call.cancel();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    */
+/**
+     * 下拉刷新
+     *//*
+
+    private void dropdownrefresh(final View view) {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "刷新", Toast.LENGTH_SHORT).show();
+                mPresent.pulldowntorefresh(view);
+            }
+        });
+    }
+    */
+/**
+     * 上拉加载
+     *//*
+
+    private void upload(final View view) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                mPresent.upload(view);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+
     }
 
     @Override
@@ -272,11 +344,12 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
     @Override
     public void onRefresh() {
-        mPresent.pulldowntorefresh();
+
     }
 
     @Override
     public void onLoadMoreRequested() {
-        mPresent.upload();
+
     }
 }
+*/

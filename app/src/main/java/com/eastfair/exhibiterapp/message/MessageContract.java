@@ -15,14 +15,14 @@ public class MessageContract {
     public interface View extends BaseView<Present> {
         void responseSuccess(Response<SectionCharacters> response, android.view.View view);
         void responseFailed(Call<SectionCharacters> call, Throwable t);
-        void RefreshSuccess(Response<SectionCharacters> response, android.view.View view);
-        void LoadSuccess(Response<SectionCharacters> response, android.view.View view);
+        void RefreshSuccess(Response<SectionCharacters> response);
+        void LoadSuccess(Response<SectionCharacters> response);
     }
 
     public interface Present extends BasePresenter {
         void getData(android.view.View view);//获取数据
-        void pulldowntorefresh(android.view.View view);//下拉刷新
-        void upload(android.view.View view);//上啦加载
+        void pulldowntorefresh();//下拉刷新
+        void upload();//上啦加载
         void cancelRequest();
     }
 }

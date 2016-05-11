@@ -15,7 +15,6 @@ import com.eastfair.exhibiterapp.adapter.MyRecyclerviewAdapter;
 import com.eastfair.exhibiterapp.adapter.MyRecyclerviewHolder;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.detail.view.DetailActivity;
-import com.eastfair.exhibiterapp.weight.SupportRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ import butterknife.ButterKnife;
 public class MyRedPackageActivity extends BaseActivity {
 
     @Bind(R.id.rv_redpackage)
-    SupportRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @Bind(R.id.myredpackage_toolbar)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
@@ -77,9 +76,6 @@ public class MyRedPackageActivity extends BaseActivity {
         mData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             mData.add("data" + i);
-        }
-        if (mData == null) {
-            recyclerView.setEmptyView(findViewById(R.id.empty_view));
         }
         final List imagelist = new ArrayList();
         Map<String,Object> image1 = new HashMap<>();

@@ -18,14 +18,15 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".main.view.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".welcome.view.LogoActivity">
         </activity>
         <activity android:name=".login.view.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".login.view.ForgetActivity"></activity>
         <activity android:name=".regist.RegistActivity"></activity>

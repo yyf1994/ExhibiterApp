@@ -1,3 +1,4 @@
+/*
 package com.eastfair.exhibiterapp.message.view.fragment;
 
 
@@ -27,9 +28,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+*/
 /**
  * A simple {@link Fragment} subclass.
- */
+ *//*
+
 public class MessageFragment1 extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         SectionAdapter.OnChildItemClickListener<Character>,
         SectionAdapter.OnChildItemLongClickListener<Character> {
@@ -86,11 +89,13 @@ public class MessageFragment1 extends BaseFragment implements OnRefreshListener,
 //        if (mType == TYPE_LINEAR) {
             layoutManager = new LinearLayoutManager(getContext());
 //        }
-        /*else if (mType == TYPE_GRID) {
+        */
+/*else if (mType == TYPE_GRID) {
             layoutManager = new GridLayoutManager(getContext(), 2);
         } else if (mType == TYPE_STAGGERED_GRID) {
             layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        }*/
+        }*//*
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
 
@@ -205,3 +210,4 @@ public class MessageFragment1 extends BaseFragment implements OnRefreshListener,
         swipeToLoadLayout.setRefreshing(false);
     }
 }
+*/
