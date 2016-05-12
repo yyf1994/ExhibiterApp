@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ import retrofit2.Response;
 /**
  * 消息界面
  */
-public class MessageFragment extends BaseFragment implements MessageContract.View,BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
+public class MessageFragment extends BaseFragment implements MessageContract.View, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -58,7 +59,7 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
 
     private List<Characters> mData;
-        private MessageAdapter mAdapter;
+    private MessageAdapter mAdapter;
 //    private MyRecyclerviewAdapter mAdapter;
 
     private LinearLayoutManager linearLayoutManager;
@@ -66,7 +67,7 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
     private static final int TOTAL_COUNTER = 18;
 
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 5;//正式使用的时候设置为10，让第一屏满屏
 
     private int mCurrentCounter = 0;
 
@@ -98,20 +99,21 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("onCreateView", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
-
         initView(view);
-
         initParams();
+        initAdapter();
+        setListener();
         //初始化数据
         mPresent.getData(view);
-//        initAdapter();
-        setListener();
+//        recyclerView.setAdapter(mAdapter);
         return view;
     }
+
 
     private void initView(View view) {
         //设置recyclerview
@@ -141,6 +143,7 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         img_search.setVisibility(View.GONE);
 
     }
+
     private void initParams() {
         mPresent = new MessagePresenter(this);
     }
@@ -150,8 +153,9 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         mAdapter.openLoadAnimation();
         recyclerView.setAdapter(mAdapter);
         mCurrentCounter = mAdapter.getItemCount();
+
         mAdapter.setOnLoadMoreListener(this);
-        mAdapter.openLoadMore(PAGE_SIZE,true);//or call mQuickAdapter.setPageSize(PAGE_SIZE);  mQuickAdapter.openLoadMore(true);
+        mAdapter.openLoadMore(PAGE_SIZE, true);
         mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -163,11 +167,12 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         mAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
             @Override
             public boolean onItemLongClick(View view, int i) {
-                Toast.makeText(getActivity(),"long",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "long", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
     }
+
     /**
      * 发需求按钮点击事件
      */
@@ -193,7 +198,8 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
     public void responseSuccess(Response<SectionCharacters> response, View view) {
         SectionCharacters sectionCharacters = response.body();
         mData = sectionCharacters.getCharacters();
-        initAdapter();
+        mAdapter.setNewData(mData);
+        mCurrentCounter = PAGE_SIZE;
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -233,7 +239,7 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
             SectionCharacters sectionCharacters = response.body();
             mData = sectionCharacters.getCharacters();
             mAdapter.addData(mData);
-            mAdapter.notifyDataChangedAfterLoadMore(mData,true);
+            mAdapter.notifyDataChangedAfterLoadMore(mData, true);
             mCurrentCounter = mAdapter.getItemCount();
         }
     }

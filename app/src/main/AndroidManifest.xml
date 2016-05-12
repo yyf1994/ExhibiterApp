@@ -18,15 +18,18 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".main.view.MainActivity">
-
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
         <activity android:name=".welcome.view.LogoActivity">
         </activity>
         <activity android:name=".login.view.LoginActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".login.view.ForgetActivity"></activity>
         <activity android:name=".regist.RegistActivity"></activity>
@@ -49,7 +52,12 @@
         <activity android:name=".exhibitors.view.activity.ExhibitorsSearchActivity"></activity>
         <activity android:name=".exhibits.view.activity.ExhibitsSearchActivity"></activity>
         <activity android:name=".welcome.view.WelcomeActivity"></activity>
-        <activity android:name=".regist.CardInfoActivity"></activity>
+        <activity android:name=".regist.CardInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".regist.VerifyPhoneActivity"></activity>
         <activity android:name=".message.view.activity.MessageDetailActivity"></activity>
     </application>

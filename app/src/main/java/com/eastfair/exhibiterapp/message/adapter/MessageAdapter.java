@@ -8,7 +8,6 @@ import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.model.Characters;
 import com.eastfair.exhibiterapp.util.GlideCircleTransform;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,16 +15,9 @@ import java.util.List;
  */
 public class MessageAdapter extends BaseQuickAdapter<Characters> {
 
-    private List<Characters> mDatas;
-
     public MessageAdapter(Context context, List<Characters> datas) {
         super(context, R.layout.message_item, datas);
-        mDatas = (datas != null) ? datas : new ArrayList();
     }
-
-    /*public MessageAdapter(Context context, int dataSize) {
-        super(context, R.layout.message_item, DataServer.getSampleData(dataSize));
-    }*/
 
     @Override
     protected void convert(BaseViewHolder helper, Characters item) {
