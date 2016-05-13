@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.actionsheet.ActionSheet;
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.eastfair.exhibiterapp.R;
 import com.eastfair.exhibiterapp.base.BaseActivity;
 import com.eastfair.exhibiterapp.main.view.MainActivity;
@@ -21,6 +23,7 @@ import com.eastfair.exhibiterapp.util.DialogUtil;
 import com.eastfair.exhibiterapp.util.SDUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,7 +32,7 @@ import butterknife.OnClick;
 /**
  * 名片信息
  */
-public class CardInfoActivity extends BaseActivity {
+public class CardInfoActivity extends BaseActivity implements ActionSheet.ActionSheetListener {
 
     @Bind(R.id.img_photo)
     ImageView img_photo;
@@ -41,10 +44,6 @@ public class CardInfoActivity extends BaseActivity {
     EditText edit_job;
     @Bind(R.id.edit_email)
     EditText edit_email;
-//    @Bind(R.id.edit_phonenum)
-//    EditText edit_phonenum;
-//    @Bind(R.id.edit_pass)
-//    EditText edit_pass;
     @Bind(R.id.tv_choose_fenlei)
     TextView tv_choose_fenlei;
     @Bind(R.id.tv_choose_purpose)
@@ -55,15 +54,12 @@ public class CardInfoActivity extends BaseActivity {
     TextView tv_choose_area;
     @Bind(R.id.btn_yanzhengnum)
     Button btn_yanzhengnum;
-//    @Bind(R.id.rv_phonemun)
-//    RelativeLayout rv_phonemun;
-    @Bind(R.id.toolbar_title)
+    @Bind(R.id.cardinfo_title)
     Toolbar toolbar_title;
     @Bind(R.id.text_title)
     TextView text_Title;
 
     private String message;
-//    private String verifytag;
     private String[] mData;
 
     private File tuTempFile;
@@ -71,17 +67,52 @@ public class CardInfoActivity extends BaseActivity {
             Environment.getExternalStorageDirectory(),
             SDUtil.getPhotoFileName());
 
+    private ArrayList<String> optionsItems = new ArrayList<String>();
+    OptionsPickerView pvOptions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cardinfo);
         ButterKnife.bind(this);
         initView();
+
+    }
+
+    private void initData() {
+
+        //选项选择器
+        pvOptions = new OptionsPickerView(this);
+        optionsItems.add("床上用品区");
+        optionsItems.add("家居装饰用品区");
+        optionsItems.add("装饰布面料区");
+        optionsItems.add("辅料区");
+        pvOptions.setPicker(optionsItems);
+        pvOptions.setTitle("选择城市");
+        pvOptions.setCyclic(false);
+        //设置默认选中的三级项目
+        //监听确定选择按钮
+//        pvOptions.setSelectOptions(1);
+        pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
+
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3) {
+                //返回的分别是三个级别的选中位置
+                String tx = optionsItems.get(options1);
+                Toast.makeText(CardInfoActivity.this,tx,Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @OnClick(R.id.img_photo)
     public void cardphoto() {
-        final String[] mData = {"拍照", "从相册选取"};
+        setTheme(R.style.ActionSheetStyleiOS7);
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("拍照", "从相册选取")
+                .setCancelableOnTouchOutside(true).setListener(this).show();
+       /* final String[] mData = {"拍照", "从相册选取"};
         DialogUtil.showDialog(CardInfoActivity.this, "", mData, new DialogUtil.OnClickItemListener() {
             @Override
             public void onClickItem(int which) {
@@ -91,16 +122,25 @@ public class CardInfoActivity extends BaseActivity {
                     openPhotoHead();
                 }
             }
-        });
+        });*/
     }
     @OnClick(R.id.tv_choose_fenlei)
     public void choosefenlei(){
-        message = "请选择您关注的展品分类";
+
+        /**
+         * 仿ios的dialog
+         * */
+        initData();
+        //点击弹出选项选择器
+        pvOptions.show();
+
+        /**
+         * 系统自带的dialog
+         * */
+       /* message = "请选择您关注的展品分类";
         mData = new String[]{"床上用品区", "家居装饰用品区", "装饰布面料区", "辅料区"};
-        dialogShow(message,mData,"fenlei");
+        dialogShow(message,mData,"fenlei");*/
     }
-
-
 
     @OnClick(R.id.tv_choose_purpose)
     public void choosepurpose(){
@@ -228,4 +268,23 @@ public class CardInfoActivity extends BaseActivity {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+        switch (index){
+            case 0://拍照
+
+                break;
+            case 1://从相册选取
+
+                break;
+            default:
+                break;
+        }
+
+    }
 }
