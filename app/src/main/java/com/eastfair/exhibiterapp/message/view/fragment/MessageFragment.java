@@ -1,5 +1,6 @@
 package com.eastfair.exhibiterapp.message.view.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,6 +29,7 @@ import com.eastfair.exhibiterapp.message.presenter.MessagePresenter;
 import com.eastfair.exhibiterapp.message.view.activity.MessageDetailActivity;
 import com.eastfair.exhibiterapp.model.Characters;
 import com.eastfair.exhibiterapp.model.SectionCharacters;
+import com.eastfair.exhibiterapp.util.DialogUtil;
 import com.eastfair.exhibiterapp.weight.RecycleViewDivider;
 
 import java.util.List;
@@ -60,10 +62,8 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
     private List<Characters> mData;
     private MessageAdapter mAdapter;
-//    private MyRecyclerviewAdapter mAdapter;
 
     private LinearLayoutManager linearLayoutManager;
-
 
     private static final int TOTAL_COUNTER = 18;
 
@@ -168,6 +168,36 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
             @Override
             public boolean onItemLongClick(View view, int i) {
                 Toast.makeText(getActivity(), "long", Toast.LENGTH_SHORT).show();
+               /* final Dialog dialog = new Dialog(getActivity(), R.style.MyDialog);
+                //设置它的ContentView
+                dialog.setContentView(R.layout.dialog);
+                dialog.show();
+                Button btn_ok = (Button) dialog.findViewById(R.id.dialog_button_ok);
+                Button btn_cancel = (Button) dialog.findViewById(R.id.dialog_button_cancel);
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });*/
+                DialogUtil.showDeleteDialog(getActivity(), new DialogUtil.OnClickListenerOk() {
+                    @Override
+                    public void onClickok(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(),"ok",Toast.LENGTH_SHORT).show();
+                    }
+                }, new DialogUtil.OnClickListenerCancel() {
+                    @Override
+                    public void onClickcancel(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 return true;
             }
         });

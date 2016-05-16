@@ -155,4 +155,17 @@
         <item name="android:windowExitAnimation">@anim/push_up_out</item>
     </style>
 
+    <!-- 设置系统标题栏与APP标题栏颜色一致-->
+    <style name="ColorTranslucentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MyDialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@mipmap/bg_warning</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

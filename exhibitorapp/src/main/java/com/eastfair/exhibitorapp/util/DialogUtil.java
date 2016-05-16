@@ -94,7 +94,7 @@ public class DialogUtil {
 
 
     /**
-     * 删除对话框的 Listener
+     * 删除对话框的 okListener
      */
     // 因为本类不是activity所以通过继承接口的方法获取到点击的事件
     public interface OnClickListenerOk {
@@ -103,7 +103,7 @@ public class DialogUtil {
 
 
     /**
-     * 列表对话框的 Listener
+     * 删除对话框的 cancelListener
      */
     // 因为本类不是activity所以通过继承接口的方法获取到点击的事件
     public interface OnClickListenerCancel {

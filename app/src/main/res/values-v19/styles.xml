@@ -1,9 +1,8 @@
 <resources>
     <style name="ColorTranslucentTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">false</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@color/toolbar_title_bgcolor</item>
-
     </style>
 
     <style name="MyDialog" parent="android:Theme.Dialog">
@@ -13,4 +12,5 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
 </resources>

@@ -18,13 +18,12 @@
         android:theme="@style/NoTitle">
 
         <activity android:name=".main.view.MainActivity">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
-        <activity android:name=".welcome.view.LogoActivity">
-        </activity>
+        <activity android:name=".welcome.view.LogoActivity"></activity>
         <activity android:name=".login.view.LoginActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +41,8 @@
         <activity android:name=".detail.view.DetailActivity"></activity>
         <activity android:name=".capture.BarcodeScannerActivity"></activity>
         <activity android:name=".capture.CaptureActivity"></activity>
-        <activity android:name=".demand.view.SendDemandActivity"
+        <activity
+            android:name=".demand.view.SendDemandActivity"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity android:name=".exhibits.view.activity.ExhibitsDetailActivity"></activity>
@@ -52,11 +52,14 @@
         <activity android:name=".exhibitors.view.activity.ExhibitorsSearchActivity"></activity>
         <activity android:name=".exhibits.view.activity.ExhibitsSearchActivity"></activity>
         <activity android:name=".welcome.view.WelcomeActivity"></activity>
-        <activity android:name=".regist.CardInfoActivity">
-            <intent-filter>
+        <!--android:theme="@style/ColorTranslucentTheme" 设置系统标题栏颜色与APP标题栏颜色一致 -->
+        <activity
+            android:name=".regist.CardInfoActivity"
+            android:theme="@style/ColorTranslucentTheme">
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".regist.VerifyPhoneActivity"></activity>
         <activity android:name=".message.view.activity.MessageDetailActivity"></activity>

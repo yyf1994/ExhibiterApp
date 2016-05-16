@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Window;
@@ -48,10 +47,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         createTime = System.currentTimeMillis();
         // 添加Activity到容器中
         activitys.add(this);
-//        findViews();
-//        registerEvents();
-//        init();
     }
+
     /**
      * 跳转
      *
@@ -119,13 +116,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         toast.show();
     }
 
-
-//    public abstract void findViews();
-//
-//    public abstract void registerEvents();
-//
-//    public abstract void init();
-
     /**
      * 开始加载数据时候的进度
      */
@@ -179,4 +169,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
+
+
 }
