@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eastfair.exhibiterapp">
 
-    <!--照相-->
+    <!-- 照相 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--拨打电话-->
+    <!-- 拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--请求网络-->
+    <!-- 请求网络 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,53 +16,63 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/NoTitle">
-
         <activity android:name=".main.view.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".welcome.view.LogoActivity" />
+        <activity android:name=".login.view.LoginActivity">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
-        <activity android:name=".welcome.view.LogoActivity"></activity>
-        <activity android:name=".login.view.LoginActivity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <activity android:name=".login.view.ForgetActivity"></activity>
-        <activity android:name=".regist.RegistActivity"></activity>
-        <activity android:name=".login.view.NewPassActivity"></activity>
+        <activity android:name=".login.view.ForgetActivity" />
+        <activity android:name=".regist.RegistActivity" />
+        <activity android:name=".login.view.NewPassActivity" />
         <activity
             android:name=".me.view.activity.MyMessageActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <activity android:name=".me.view.activity.MyRedPackageActivity"></activity>
-        <activity android:name=".detail.view.DetailActivity"></activity>
-        <activity android:name=".capture.BarcodeScannerActivity"></activity>
-        <activity android:name=".capture.CaptureActivity"></activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity android:name=".me.view.activity.MyRedPackageActivity" />
+        <activity android:name=".detail.view.DetailActivity" />
+        <activity android:name=".capture.BarcodeScannerActivity" />
+        <activity android:name=".capture.CaptureActivity" />
         <activity
             android:name=".demand.view.SendDemandActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <activity android:name=".exhibits.view.activity.ExhibitsDetailActivity"></activity>
-        <activity android:name=".exhibitors.view.activity.ExhibitorsDetailActivity"></activity>
-        <activity android:name=".exhibits.view.activity.ExhibitsListActivity"></activity>
-        <activity android:name=".export.view.ExportActivity"></activity>
-        <activity android:name=".exhibitors.view.activity.ExhibitorsSearchActivity"></activity>
-        <activity android:name=".exhibits.view.activity.ExhibitsSearchActivity"></activity>
-        <activity android:name=".welcome.view.WelcomeActivity"></activity>
-        <!--android:theme="@style/ColorTranslucentTheme" 设置系统标题栏颜色与APP标题栏颜色一致 -->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity android:name=".exhibits.view.activity.ExhibitsDetailActivity" />
+        <activity android:name=".exhibitors.view.activity.ExhibitorsDetailActivity" />
+        <activity android:name=".exhibits.view.activity.ExhibitsListActivity" />
+        <activity android:name=".export.view.ExportActivity" />
+        <activity android:name=".exhibitors.view.activity.ExhibitorsSearchActivity" />
+        <activity android:name=".exhibits.view.activity.ExhibitsSearchActivity" />
+        <activity android:name=".welcome.view.WelcomeActivity" />
+        <!-- android:theme="@style/ColorTranslucentTheme" 设置系统标题栏颜色与APP标题栏颜色一致 -->
         <activity
             android:name=".regist.CardInfoActivity"
             android:theme="@style/ColorTranslucentTheme">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-        <activity android:name=".regist.VerifyPhoneActivity"></activity>
-        <activity android:name=".message.view.activity.MessageDetailActivity"></activity>
+        <activity android:name=".regist.VerifyPhoneActivity" />
+        <activity android:name=".message.view.activity.MessageDetailActivity" />
+        <activity
+            android:name=".message.view.activity.MessageDetailActivity2"
+            android:label="@string/title_activity_message_detail2"
+            android:theme="@style/NoTitle"></activity>
     </application>
 
 </manifest>
