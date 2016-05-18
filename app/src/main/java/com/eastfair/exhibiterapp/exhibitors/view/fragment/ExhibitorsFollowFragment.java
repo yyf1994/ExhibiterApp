@@ -226,8 +226,6 @@ public class ExhibitorsFollowFragment extends BaseFragment implements Exhibitors
         };
         mRecyclerView.setAdapter(mAdapter);
 
-
-
         //添加头部
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
         mRecyclerView.addItemDecoration(headersDecor);

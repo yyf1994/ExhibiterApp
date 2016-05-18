@@ -24,7 +24,8 @@
  * #                                                   #
  * #               佛祖保佑         永无BUG              #
  * #                                                   #
- */
+ *//*
+
 
 package com.eastfair.exhibiterapp.weight.exhibitors;
 
@@ -36,10 +37,12 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
 
+*/
 /**
  * Created by jiang on 15/12/23.
  * 判断当前recyclerview的滑动事件，判断需不需要让划出来的按钮回去
- */
+ *//*
+
 public class TouchableRecyclerView extends RecyclerView {
 
     private Context mContext;
@@ -64,12 +67,14 @@ public class TouchableRecyclerView extends RecyclerView {
     }
 
 
-    /**
+    */
+/**
      * 判断 当前手势触摸的距离是否为拖动的最小距离
      *
      * @param e
      * @return
-     */
+     *//*
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
@@ -101,3 +106,4 @@ public class TouchableRecyclerView extends RecyclerView {
 //            ((ContactAdapter) getAdapter()).closeOpenedSwipeItemLayoutWithAnim();
 //    }
 }
+*/

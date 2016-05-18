@@ -7,6 +7,7 @@ import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eastfair.exhibiterapp.R;
@@ -25,6 +26,10 @@ public class MessageDetailActivity extends BaseActivity implements ObservableScr
      */
     @Bind(R.id.ObservableScrollView)
     ObservableScrollView scrollView;
+    @Bind(R.id.message_detail_layout)
+    LinearLayout message_detail_layout;
+    @Bind(R.id.enterprise_detail_layout)
+    LinearLayout enterprise_detail_layout;
     @Bind(R.id.tv_name)
      TextView tv_name;
     @Bind(R.id.tv_activities)
@@ -149,7 +154,7 @@ public class MessageDetailActivity extends BaseActivity implements ObservableScr
 
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
-        if(y<=height){
+ /*       if(y<=height){
             float scale =(float) y /height;
             float alpha =  (255 * scale);
 //          Log.i("TAG","alpha--->"+alpha);
@@ -159,6 +164,8 @@ public class MessageDetailActivity extends BaseActivity implements ObservableScr
 
             //只是layout背景透明(仿知乎滑动效果)
             img_detial.setBackgroundColor(Color.argb((int) alpha, 0xfd, 0x91, 0x5b));
-        }
+            TranslateAnimation ts = new TranslateAnimation(0,0,0,-height);
+            scrollView.startAnimation(ts);
+        }*/
     }
 }
